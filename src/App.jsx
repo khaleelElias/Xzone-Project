@@ -8,12 +8,12 @@ function App() {
   return (
     <>
     
-    <div className='min-h-screen'>
-      <h1 className='text-6x1 font-bold '>Khaleel</h1>
-      <div className='gradiant-bg-welcome'>
+    <div className="min-h-screen">
+    <div className="gradient-bg-welcome">
         <Navbar />
+        <Welcome />
       </div>
-      <Welcome />
+      
       <Betting />
       <About_Us />
       <Team/>
