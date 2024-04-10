@@ -1,5 +1,5 @@
 
-import { About_Us, Betting, Footer, Loader, Navbar, Welcome, Team } from './components'
+import { About_Us, Betting, Footer, Loader, Navbar, Welcome, Team, SportsHighlights } from './components'
 
 import './App.css'
 
@@ -17,6 +17,7 @@ function App() {
       <Betting />
       <About_Us />
       <Team/>
+      <SportsHighlights/>
     </div>
     </>
   );

@@ -1,0 +1,40 @@
+.segment-selector {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .segment {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .segment .status {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    color: #fff;
+  }
+  
+  .segment .title {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 2;
+    color: #fff;
+  }
+  
+  .segment .image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+  }
+  
+  /* Additional styles for hover effects and animations can be added as needed */
+  
