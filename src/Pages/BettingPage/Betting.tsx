@@ -5,6 +5,7 @@ import { mockGames } from './mockData';
 import PoolInfo from './Components/PoolInfo';
 import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import db from '../../firebase/firebase';
+import Popup from "./Components/Popup";
 
 const BettingPage = () => {
   const [games, setGames] = useState<IBetSlip[]>(mockGames);
@@ -121,7 +122,8 @@ const BettingPage = () => {
 
         setSending(false);
         setStatus("You successfully created the betslip")
-        return;
+        
+        return (<Popup />);
       });
 
       
@@ -144,10 +146,27 @@ const BettingPage = () => {
   }
 
   return (
+    <>
+    
+    <div className="flex justify-center items-center">
+    <img src="/images/logo.png" alt="logo" className="cursor-pointer h-65  w-60 md:w-10 lg:w-48"  />
+    </div>
+    <PoolInfo />
+    
+    <div className="flex flex-wrap gap-4 justify-center pt-5">
+          <div className="flex flex-col gap-2">
+          <input type="text" className='X-form-control' placeholder='code' style={{ maxWidth: '300px' }} onChange={(e) => setCode(e.target.value)} />
+          </div>
+          <div className="flex flex-col gap-2">
+          
+          <input type="text" className='X-form-control' placeholder='wallet' style={{ maxWidth: '300px' }} onChange={(e) => setWallet(e.target.value)} />
+          </div>
+        </div>
     <div className='centeralized-container'>
-
-      <PoolInfo />
+      
       <table className="custom-table">
+        
+      
         <tbody>
           {games.map((game, index) => (
             <tr key={index} className='gameBorder'>
@@ -179,20 +198,24 @@ const BettingPage = () => {
         <div>
           <label>Code</label>
           <input type="text" className='X-form-control' placeholder='code' style={{ maxWidth: '300px' }} onChange={(e) => setCode(e.target.value)} />
-          <br />
+          
           <label>Wallet</label>
           <input type="text" className='X-form-control' placeholder='wallet' style={{ maxWidth: '300px' }} onChange={(e) => setWallet(e.target.value)} />
         </div>
 
         {
           isSendable && (
+            <div>
             <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Send </button>
+          </div>
           )
         }
 
         {
           !isSendable && (
-            <button className="bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50"> Send </button>
+            <div>
+            <button className="p-4  bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 ..."> Save change</button>
+            </div>
           )
         }
       </div>
@@ -214,6 +237,7 @@ const BettingPage = () => {
 
 
     </div>
+    </>
   );
 };
 
