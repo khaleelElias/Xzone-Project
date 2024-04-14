@@ -161,6 +161,22 @@ const BettingPage = () => {
           
           <input type="text" className='X-form-control' placeholder='wallet' style={{ maxWidth: '300px' }} onChange={(e) => setWallet(e.target.value)} />
           </div>
+          
+        {
+          isSendable && (
+            <div>
+            <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Send </button>
+          </div>
+          )
+        }
+
+        {
+          !isSendable && (
+            <div>
+            <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full cursor-pointer"> Create My PIX Slip</button>
+            </div>
+          )
+        }
         </div>
     <div className='centeralized-container'>
       
@@ -194,32 +210,7 @@ const BettingPage = () => {
         </tbody>
       </table>
 
-      <div className='custom-table' style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
-          <label>Code</label>
-          <input type="text" className='X-form-control' placeholder='code' style={{ maxWidth: '300px' }} onChange={(e) => setCode(e.target.value)} />
-          
-          <label>Wallet</label>
-          <input type="text" className='X-form-control' placeholder='wallet' style={{ maxWidth: '300px' }} onChange={(e) => setWallet(e.target.value)} />
-        </div>
-
-        {
-          isSendable && (
-            <div>
-            <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Send </button>
-          </div>
-          )
-        }
-
-        {
-          !isSendable && (
-            <div>
-            <button className="p-4  bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 ..."> Save change</button>
-            </div>
-          )
-        }
-      </div>
-
+      
       <div className='custom-table' style={{ display: 'flex', justifyContent: 'space-between' }}>
         <p>{status}</p>
         {sending && (
