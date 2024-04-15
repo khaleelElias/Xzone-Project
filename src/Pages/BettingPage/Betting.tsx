@@ -155,11 +155,11 @@ const BettingPage = () => {
 
       <div className="flex flex-wrap gap-4 justify-center pt-5">
         <div className="flex flex-col gap-2">
-          <input type="text" className='X-form-control' placeholder='code' style={{ maxWidth: '300px' }} onChange={(e) => setCode(e.target.value)} />
+          <input type="text" className='X-form-control' placeholder='code' style={{ maxWidth: '200px' }} onChange={(e) => setCode(e.target.value)} />
         </div>
         <div className="flex flex-col gap-2">
 
-          <input type="text" className='X-form-control' placeholder='wallet' style={{ maxWidth: '300px' }} onChange={(e) => setWallet(e.target.value)} />
+          <input type="text" className='X-form-control' placeholder='wallet' style={{ maxWidth: '200px' }} onChange={(e) => setWallet(e.target.value)} />
         </div>
 
       </div>
@@ -204,7 +204,7 @@ const BettingPage = () => {
 
           {
             !isSendable && (
-              <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full cursor-pointer"> Create My PIX Slip</button>
+              <button className="bg-[#e4e4e4] py-2  m-10 px-7 mx-4 rounded-full cursor-pointer"> Create My PIX Slip</button>
             )
           }
         </div>
