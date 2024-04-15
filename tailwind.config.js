@@ -5,6 +5,16 @@ export default {
     extend: {
       fontFamily: {
         custom: ["Poppins", "sans-serif"],
+        Book: 'Book',
+        Modern: 'Modern',
+        Seg: 'Seg',
+        ProLight: 'ProLight',
+        ProLightOblique: 'ProLightOblique',
+        ProOblique: 'ProOblique',
+        ProMedOblique: 'ProMedOblique',
+        ProBlackOblique: 'ProBlackOblique',
+        HeavyOblique: 'HeavyOblique',
+        Heavy: 'Heavy'
       },
     },
   },
