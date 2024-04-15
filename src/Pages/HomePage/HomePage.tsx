@@ -1,9 +1,12 @@
-
 const HomePage = () => {
   return (
     <div className="min-h-screen">
       <nav className="w-full flex md:justify-center justify-between object-center">
-        <img src="/images/logo.png" alt="logo" className="cursor-pointer h-65 py-20 w-60 md:w-10 lg:w-48"  />
+        <img
+          src="/images/logo.png"
+          alt="logo"
+          className="cursor-pointer h-65 py-20 w-60 md:w-10 lg:w-48"
+        />
       </nav>
       <div className="flex w-full justify-center items-center ">
         <div className="">
@@ -16,14 +19,17 @@ const HomePage = () => {
             </p>
           </div>
           <div className="py-10">
-            <a href="/pixslip" className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full cursor-pointer">
+            <a
+              href="/pixslip"
+              className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full cursor-pointer"
+            >
               Get Started
-            </a></div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   );
-
 };
 
 export default HomePage;
