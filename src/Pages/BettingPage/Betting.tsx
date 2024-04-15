@@ -148,6 +148,7 @@ const BettingPage = () => {
 
   return (
     <>
+      <div className='background'>
 
       <div className="flex justify-center items-center">
         <img src="/images/logo.png" alt="logo" className="cursor-pointer h-65  w-60 md:w-10 lg:w-48" />
@@ -205,7 +206,7 @@ const BettingPage = () => {
 
           {
             !isSendable && (
-              <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled> Create My PIX Slip</button>
+              <button className="bg-[#e4e4e4] py-2 px-7 m-6 mx-4 rounded-full" disabled> Create My PIX Slip</button>
             )
           }
         </div>
@@ -226,6 +227,7 @@ const BettingPage = () => {
 
 
 
+      </div>
       </div>
     </>
   );

@@ -1,13 +1,20 @@
 body {
-    background: rgb(46, 0, 51);
-    background: radial-gradient(circle, rgba(46, 0, 51, 1) 0%, rgba(1, 0, 20, 1) 100%);
-    font-size: 16px;
+    background-image: url('/public/images/bg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh; /* or any desired height */
 }
 
+.background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh; /* or any desired height */
+  }
+  
 p {
-    font-size: 1rem;;
+    font: 1rem;;
 }
-
+/*Match cards*/
 .custom-table {
     border-collapse: separate;
     border-spacing: 0 1.2rem;
@@ -15,7 +22,7 @@ p {
     max-width: 1000px;
     color: white;
 }
-
+/*Background color for matches cards*/
 .custom-table>tbody>tr {
     background-color: #130d25;
 }
