@@ -8,6 +8,7 @@ import db from '../../firebase/firebase';
 import Popup from "./Components/Popup";
 
 const BettingPage = () => {
+  const MAX_BETTING_PICKS = 10;
   const [games, setGames] = useState<IBetSlip[]>(mockGames);
   const [isSendable, setIsSendable] = useState<boolean>(false);
   const [price, setPrice] = useState<number>(0);
@@ -28,7 +29,7 @@ const BettingPage = () => {
     setGames(arr);
 
     setIsSendable(!arr.some(x => !x.awayPicked && !x.homePicked && !x.drawPicked))
-    setReachedLimit(calcSum(arr) >= 15)
+    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS)
   }
 
   const pickXMatch = (index: number) => {
@@ -42,7 +43,7 @@ const BettingPage = () => {
     setGames(arr);
 
     setIsSendable(!arr.some(x => !x.awayPicked && !x.homePicked && !x.drawPicked))
-    setReachedLimit(calcSum(arr) >= 15)
+    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS)
 
   }
 
@@ -56,7 +57,7 @@ const BettingPage = () => {
     arr[index] = game;
     setGames(arr);
     setIsSendable(!arr.some(x => !x.awayPicked && !x.homePicked && !x.drawPicked))
-    setReachedLimit(calcSum(arr) >= 15)
+    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS)
 
   }
 
@@ -198,13 +199,13 @@ const BettingPage = () => {
         <div>
           {
             isSendable && (
-              <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Send </button>
+              <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Create My PIX Slip </button>
             )
           }
 
           {
             !isSendable && (
-              <button className="bg-[#e4e4e4] py-2  m-10 px-7 mx-4 rounded-full cursor-pointer"> Create My PIX Slip</button>
+              <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled> Create My PIX Slip</button>
             )
           }
         </div>

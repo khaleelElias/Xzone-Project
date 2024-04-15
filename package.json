@@ -1,5 +1,6 @@
 {
   "name": "xzone-project",
+  "homepage": "https://pixzone.io",
   "private": true,
   "version": "0.0.0",
   "type": "module",
