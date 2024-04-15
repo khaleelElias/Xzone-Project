@@ -6,6 +6,12 @@ export default {
       fontFamily: {
         custom: ["Poppins", "sans-serif"],
       },
+
+      colors: {
+        transparent: "transparent",
+        blueish: "#3ab7bf",
+        pinkish: "#E18BF1",
+      },
     },
   },
   plugins: [],

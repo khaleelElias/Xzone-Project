@@ -1,5 +1,5 @@
 body {
-  background-image: url("/public/images/bg.svg");
+  background-image: url("/images/bg.svg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh; /* or any desired height */
