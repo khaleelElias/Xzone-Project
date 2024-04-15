@@ -199,13 +199,13 @@ const BettingPage = () => {
         <div>
           {
             isSendable && (
-              <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Send </button>
+              <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Create My PIX Slip </button>
             )
           }
 
           {
             !isSendable && (
-              <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full cursor-pointer"> Create My PIX Slip</button>
+              <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled> Create My PIX Slip</button>
             )
           }
         </div>
