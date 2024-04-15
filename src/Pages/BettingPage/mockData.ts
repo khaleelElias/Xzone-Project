@@ -72,51 +72,6 @@ export const mockGames : IBetSlip[]  = [
         "homePicked": false,
         "drawPicked": false,
         "awayPicked": false
-    },
-    {
-        "homeTeam": "Inter Milan",
-        "awayTeam": "Napoli",
-        "date": "2024-04-15",
-        "league": "Serie A",
-        "homePicked": false,
-        "drawPicked": false,
-        "awayPicked": false
-    },
-    {
-        "homeTeam": "Ajax",
-        "awayTeam": "PSV Eindhoven",
-        "date": "2024-04-16",
-        "league": "Eredivisie",
-        "homePicked": false,
-        "drawPicked": false,
-        "awayPicked": false
-    },
-    {
-        "homeTeam": "Borussia Monchengladbach",
-        "awayTeam": "RB Leipzig",
-        "date": "2024-04-17",
-        "league": "Bundesliga",
-        "homePicked": false,
-        "drawPicked": false,
-        "awayPicked": false
-    },
-    {
-        "homeTeam": "Lyon",
-        "awayTeam": "AS Monaco",
-        "date": "2024-04-18",
-        "league": "Ligue 1",
-        "homePicked": false,
-        "drawPicked": false,
-        "awayPicked": false
-    },
-    {
-        "homeTeam": "Valencia",
-        "awayTeam": "Villarreal",
-        "date": "2024-04-19",
-        "league": "La Liga",
-        "homePicked": false,
-        "drawPicked": false,
-        "awayPicked": false
     }
 ]
 

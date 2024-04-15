@@ -8,6 +8,7 @@ import db from '../../firebase/firebase';
 import Popup from "./Components/Popup";
 
 const BettingPage = () => {
+  const MAX_BETTING_PICKS = 10;
   const [games, setGames] = useState<IBetSlip[]>(mockGames);
   const [isSendable, setIsSendable] = useState<boolean>(false);
   const [price, setPrice] = useState<number>(0);
@@ -28,7 +29,7 @@ const BettingPage = () => {
     setGames(arr);
 
     setIsSendable(!arr.some(x => !x.awayPicked && !x.homePicked && !x.drawPicked))
-    setReachedLimit(calcSum(arr) >= 15)
+    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS)
   }
 
   const pickXMatch = (index: number) => {
@@ -42,7 +43,7 @@ const BettingPage = () => {
     setGames(arr);
 
     setIsSendable(!arr.some(x => !x.awayPicked && !x.homePicked && !x.drawPicked))
-    setReachedLimit(calcSum(arr) >= 15)
+    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS)
 
   }
 
@@ -56,7 +57,7 @@ const BettingPage = () => {
     arr[index] = game;
     setGames(arr);
     setIsSendable(!arr.some(x => !x.awayPicked && !x.homePicked && !x.drawPicked))
-    setReachedLimit(calcSum(arr) >= 15)
+    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS)
 
   }
 
