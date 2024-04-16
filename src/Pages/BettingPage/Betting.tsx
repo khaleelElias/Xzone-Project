@@ -3,6 +3,7 @@ import { IBetSlip } from "./model";
 import "./Betting.css";
 import { mockGames } from "./mockData";
 import PoolInfo from "./Components/PoolInfo";
+import Walletcode from "./Components/Walletcode";
 import {
   addDoc,
   collection,
@@ -198,31 +199,18 @@ const BettingPage = () => {
   return (
     <>
       <div className="background">
-        <div className="flex justify-center items-center">
+        <div className="grid justify-center items-center p-8">
           <img
             src="/images/logo.png"
             alt="logo"
-            className="cursor-pointer p-9 h-40  w-20 md:w-10 lg:w-48"
+            className="cursor-pointer w-20 h-20"
           />
         </div>
 
-        <div className=" flex justify-center items-center">
-          <div className="grid grid-cols-2 gap-1">
-            <div>
-              <img
-                src="/images/user.png"
-                alt="logo"
-                className="cursor-pointer"
-              />
-            </div>
-            <div>01</div>
-            <div>09</div>
-          </div>
-        </div>
         <PoolInfo />
-
-        <div className="flex flex-wrap gap-4 justify-center pt-5">
-          <div className="flex flex-col gap-2">
+        <Walletcode />
+        <div className="flex flex-wrap gap-10 justify-center pt-2 ">
+          <div className="flex flex-col rounded-md">
             <input
               type="text"
               className="X-form-control"

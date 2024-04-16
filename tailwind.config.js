@@ -20,8 +20,8 @@ export default {
 
       colors: {
         transparent: "transparent",
-        blueish: "#3ab7bf",
-        pinkish: "#E18BF1",
+        blueish: "#95b3ff",
+        pinkish: "#e895ff",
         btncol: "#FF96FF",
         btncol2: "#95B2FF",
       },
