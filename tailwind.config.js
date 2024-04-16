@@ -16,6 +16,12 @@ export default {
         HeavyOblique: 'HeavyOblique',
         Heavy: 'Heavy'
       },
+
+      colors: {
+        transparent: "transparent",
+        blueish: "#3ab7bf",
+        pinkish: "#E18BF1",
+      },
     },
   },
   plugins: [],
