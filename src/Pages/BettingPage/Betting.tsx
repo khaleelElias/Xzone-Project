@@ -36,7 +36,7 @@ const BettingPage = () => {
     setGames(arr);
 
     setIsSendable(
-      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked),
+      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
     );
     setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
   };
@@ -51,7 +51,7 @@ const BettingPage = () => {
     setGames(arr);
 
     setIsSendable(
-      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked),
+      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
     );
     setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
   };
@@ -65,7 +65,7 @@ const BettingPage = () => {
     arr[index] = game;
     setGames(arr);
     setIsSendable(
-      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked),
+      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
     );
     setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
   };
@@ -202,8 +202,22 @@ const BettingPage = () => {
           <img
             src="/images/logo.png"
             alt="logo"
-            className="cursor-pointer h-65  w-60 md:w-10 lg:w-48"
+            className="cursor-pointer p-9 h-40  w-20 md:w-10 lg:w-48"
           />
+        </div>
+
+        <div className=" flex justify-center items-center">
+          <div className="grid grid-cols-2 gap-1">
+            <div>
+              <img
+                src="/images/user.png"
+                alt="logo"
+                className="cursor-pointer"
+              />
+            </div>
+            <div>01</div>
+            <div>09</div>
+          </div>
         </div>
         <PoolInfo />
 
