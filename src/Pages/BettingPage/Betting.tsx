@@ -248,8 +248,8 @@ const BettingPage = () => {
                 <tr key={index} className="gameBorder">
                   <td style={{ width: "20%", paddingRight: 0 }}>
                     <p style={{ color: "gray" }}>{game.league}</p>
-                    <img src="/" alt="" />
-                    <p>{game.homeTeam}</p>
+                    
+                    <img src={game.homeTeamLogo} alt={game.homeTeam} className="w-10 h-10"/>
                   </td>
                   <td valign="middle">
                     <p>vs</p>
@@ -258,7 +258,7 @@ const BettingPage = () => {
                     style={{ textAlign: "right", paddingLeft: 0, width: "20%" }}
                   >
                     <p style={{ color: "gray" }}>{game.date}</p>
-                    <img src="/" alt="" />
+                    <img src={game.awayTeamLogo} alt={game.awayTeam} className="w-10 h-10"/>
                     <p>{game.awayTeam}</p>
                   </td>
                   <td valign="middle">

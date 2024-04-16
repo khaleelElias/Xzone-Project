@@ -15,6 +15,7 @@ export default {
         ProBlackOblique: "ProBlackOblique",
         HeavyOblique: "HeavyOblique",
         Heavy: "Heavy",
+        Amsi: "Amsi"
       },
 
       colors: {

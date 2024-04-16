@@ -74,6 +74,13 @@
     url("./fonts/Avenir_LT_Std_85_Heavy.otf") format("opentype");
 }
 
+@font-face {
+  font-family: "Amsi"; /*Can be any text*/
+  src:
+    local("Amsi"),
+    url("./fonts/AmsiProCond-ThinItalic.otf") format("opentype");
+}
+
 * html {
   padding: 0;
   margin: 0;
