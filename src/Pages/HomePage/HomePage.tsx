@@ -26,7 +26,7 @@ const HomePage = () => {
           className="my-4 inline-flex items-center justify-center p-3 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <img className="w-5 h-5 me-3" src="/images/arrow.png" alt="logo" />{" "}
-          <span className="w-full">Get Started</span>
+          <span className="w-full">Get Starteds</span>
         </a>
       </div>
     </div>
