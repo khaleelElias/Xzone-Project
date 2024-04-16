@@ -1,44 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
-import db from '../../../firebase/firebase';
+import React, { useState, useEffect } from "react";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import db from "../../../firebase/firebase";
 
 const PoolInfo = () => {
-    const [participantCount, setParticipantCount] = useState(0);
+  const [participantCount, setParticipantCount] = useState(0);
 
-    useEffect(() => {
-        const fetchParticipantCount = async () => {
-            const collectionRef = collection(db, 'betslips');
-            const snapshot = await getDocs(collectionRef);
-            setParticipantCount(snapshot.size);
-        };
+  useEffect(() => {
+    const fetchParticipantCount = async () => {
+      const collectionRef = collection(db, "betslips");
+      const snapshot = await getDocs(collectionRef);
+      setParticipantCount(snapshot.size);
+    };
 
-        fetchParticipantCount();
+    fetchParticipantCount();
 
-        // Set up Firestore snapshot listener
-        const unsubscribe = onSnapshot(collection(db, 'betslips'), (snapshot) => {
-            setParticipantCount(snapshot.size);
-        });
+    // Set up Firestore snapshot listener
+    const unsubscribe = onSnapshot(collection(db, "betslips"), (snapshot) => {
+      setParticipantCount(snapshot.size);
+    });
 
-        // Unsubscribe from snapshot listener when component unmounts
-        return () => unsubscribe();
-    }, []); // Empty dependency array to run effect only once on mount
+    // Unsubscribe from snapshot listener when component unmounts
+    return () => unsubscribe();
+  }, []); // Empty dependency array to run effect only once on mount
 
-    return (
-        <div className="flex flex-wrap gap-4 justify-center pt-32">
-            <div className="flex flex-col gap-2 h-40 text-white rounded-xl shadow-md p-6 min-w-64 bg-gray-200 bg-opacity-30 backdrop-filter backdrop-blur-lg">
-                <div className="font-semibold text-lg">Number of Participants:</div>
-                <div className="font-semibold text-4xl tracking-tight">{participantCount}</div>
-            </div>
-            <div className="flex flex-col gap-2 h-40 text-white rounded-xl shadow-md p-6 min-w-64 bg-gray-200 bg-opacity-30 backdrop-filter backdrop-blur-lg">
-                <div className="font-semibold text-lg">Current Pool Size:</div>
-                <div className="font-semibold text-4xl tracking-tight">$9.524</div>
-                <div className="font-normal"></div>
-            </div>
-            <p className="text-center mt-5 text-white font-light md:w-9/12 w-11/12 text-base ">
-              Please insert you wallet adress and the rearly access code below 
-            </p>
+  return (
+    <>
+      <div className=" grid grid-flow-row gap-4 justify-center items-center text-center sm:grid-flow-col sm:auto-cols-max sm:gap-10	">
+        <div className="hidden lg:block">
+          <img
+            src="/images/userw.png"
+            alt="logo"
+            className=" w-10 h-10 md:w-4 h-4"
+          />
         </div>
-    );
+        <div className="font-ProLight text-white">
+          Number of <br />
+          Participants
+        </div>
+        <div className="font-ProBlackOblique text-blueish text-5xl">
+          {participantCount}
+        </div>
+        <div>
+          <h1 className="hidden lg:block text-5xl text-transparent bg-clip-text font-ProLight not-italic bg-gradient-to-r to-blue-500 from-pink-500">
+            :
+          </h1>
+        </div>
+        <div className="hidden lg:block">
+          <img src="/images/moneyw.png" alt="logo" className=" w-12 h-12" />
+        </div>
+        <div className="font-ProLight text-white">
+          Current <br />
+          Pool Size:
+        </div>
+        <div className="font-ProBlackOblique text-blueish text-5xl ">
+          20.000 *
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default PoolInfo;

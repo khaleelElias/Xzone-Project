@@ -1,15 +1,29 @@
 body {
-    background: rgb(46, 0, 51);
-    background: radial-gradient(circle, rgba(46, 0, 51, 1) 0%, rgba(1, 0, 20, 1) 100%);
+  background-image: url("/images/bg.png");
+  background-repeat: no-repeat;
 }
 
+.background {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+background-nav {
+  background-size: cover;
+  height: 100vh;
+}
+
+p {
+  font: 1rem;
+}
+/*Match cards*/
 .custom-table {
     border-spacing: 0 1.2rem;
     color: white;
 }
 
-.custom-table>tbody>tr {
-    background-color: #130d25;
+.custom-table > tbody > tr > td {
+  padding: 1rem 2rem;
 }
 
 .custom-table>tbody>tr>td {
@@ -19,10 +33,16 @@ body {
 
 .custom-table>tbody>tr>td:last-child {
     padding-right: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+
 }
 
 .custom-table>tbody>tr>td:first-child {
     padding-left: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+
 }
 
 p.game-league {
@@ -67,22 +87,26 @@ div.game-vertical-line {
 }
 
 .checkboxContainer {
-    display: flex;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  align-items: center;
 }
 
 .games-mobile {
     display: none;
 }
 
+.gameBorder {
+    background-color: #130d26;
+}
+
 @media screen and (max-width: 1200px) {
 
-    .custom-table {
-        border-spacing: 0 0.9rem;
-        width: 100%;
-    }
+  .custom-table {
+    border-spacing: 0 0.9rem;
+    width: 100%;
+  }
 
     .checkboxBorder {
         width: 25px;

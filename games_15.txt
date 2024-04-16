@@ -1,0 +1,76 @@
+import { IBetSlip } from "./model";
+
+export const mockGames : IBetSlip[]  = [
+    {
+    "homeTeam": "Manchester City",
+    "awayTeam": "Chelsea",
+    "date": "2024-04-20",
+    "league": "FA Cup",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+    {
+    "homeTeam": "Wolves",
+    "awayTeam": "Arsenal",
+    "date": "2024-04-20",
+    "league": "Premier League",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+    {
+    "homeTeam": "LOSC",
+    "awayTeam": "Strasbourg",
+    "date": "2024-04-21",
+    "league": "Ligue 1",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+    {
+    "homeTeam": "Aston Villa",
+    "awayTeam": "Bournemouth",
+    "date": "2024-04-21",
+    "league": "Premier League",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+    {
+    "homeTeam": "Fulham",
+    "awayTeam": "Liverpool",
+    "date": "2024-04-21",
+    "league": "Premier League",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+    {
+    "homeTeam": "PSG",
+    "awayTeam": "Lyon",
+    "date": "2024-04-21",
+    "league": "Serie A",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+	{
+    "homeTeam": "Deportivo Alavés",
+    "awayTeam": "Atletico Madrid",
+    "date": "2024-04-21",
+    "league": "La Liga",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    },
+    {
+    "homeTeam": "Real Madrid",
+    "awayTeam": "Barcelona",
+    "date": "2024-04-21",
+    "league": "La Liga",
+    "homePicked": false,
+    "drawPicked": false,
+    "awayPicked": false
+    }
+];
