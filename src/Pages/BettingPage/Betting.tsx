@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import db from "../../firebase/firebase";
 import Popup from "./Components/Popup";
+import Match from "./Components/Match";
 
 const BettingPage = () => {
   const MAX_BETTING_PICKS = 10;
@@ -198,7 +199,8 @@ const BettingPage = () => {
 
   return (
     <>
-      <div className="background">
+      <Match />
+      <div className="background font-ProLight">
         <div className="grid justify-center items-center p-8">
           <img
             src="/images/logo.png"
@@ -235,7 +237,7 @@ const BettingPage = () => {
               {games.map((game, index) => (
                 <tr key={index} className="gameBorder">
                   <td style={{ width: "20%", paddingRight: 0 }}>
-                    <p style={{ color: "gray" }}>{game.league}</p>
+                    <p style={{ color: "white" }}>{game.league}</p>
 
                     <img
                       src={game.homeTeamLogo}

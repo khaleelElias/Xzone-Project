@@ -41,7 +41,7 @@ const PoolInfo = () => {
           {participantCount}
         </div>
         <div>
-          <h1 className="hidden lg:block text-5xl text-transparent bg-clip-text font-ProLight italic bg-gradient-to-r to-blue-500 from-pink-500">
+          <h1 className="hidden lg:block text-5xl text-transparent bg-clip-text font-ProLight not-italic bg-gradient-to-r to-blue-500 from-pink-500">
             :
           </h1>
         </div>

@@ -4,7 +4,7 @@ const Walletcode = () => {
       <h1 className="text-1 text-white font-Book ">
         Please insert you
         <span className="text-blueish front-HeavyOblique italic">
-          Wallet address
+          Wallet address{" "}
         </span>
         <span>
           and the <span className="text-pinkish">nearly access code </span>below

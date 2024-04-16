@@ -36,7 +36,7 @@ p {
 }
 
 .checkboxBorder {
-  color: black;
+  color: white;
   font-weight: 600;
   width: 50px;
   height: 25px;
@@ -44,17 +44,21 @@ p {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: #2a253a;
+  background-color: #583371;
 }
 
 .checked {
-  background-color: #00427a;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 150, 255, 100),
+    rgba(149, 178, 255, 100)
+  );
   color: white;
 }
 
 .disabled {
   background-color: lightgrey;
-  color: gray;
+  color: #583371;
 }
 
 .checkboxContainer {
