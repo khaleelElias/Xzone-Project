@@ -25,9 +25,13 @@ const PoolInfo = () => {
 
   return (
     <>
-      <div className=" grid grid-flow-col auto-cols-max gap-10 justify-center items-center	">
+      <div className=" grid grid-flow-row gap-4 justify-center items-center text-center sm:grid-flow-col sm:auto-cols-max sm:gap-10	">
         <div>
-          <img src="/images/userw.png" alt="logo" className=" w-10 h-10" />
+          <img
+            src="/images/userw.png"
+            alt="logo"
+            className=" w-10 h-10 md:w-4 h-4"
+          />
         </div>
         <div className="font-ProLight text-white">
           Number of <br />
