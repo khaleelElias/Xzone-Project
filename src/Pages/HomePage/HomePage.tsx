@@ -28,7 +28,7 @@ const HomePage = () => {
           href="/pixslip"
           className="my-4 inline-flex items-center justify-center p-3 text-base  rounded-lg bg-gradient-to-r from-btncol to-btncol2 hover:from-btncol2 hover:to-btncol"
         >
-          <img className="w-5 h-5 me-3" src="/images/arrow.png" alt="logo" />{" "}
+          <img className="w-5 h-5 me-3" src="/images/arrow.png" alt="img" />{" "}
           <span className=" font-ProLight italic">
             Get <span className="font-bold not-italic ">Started</span>
           </span>

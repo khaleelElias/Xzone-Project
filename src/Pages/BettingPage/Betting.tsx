@@ -203,7 +203,7 @@ const BettingPage = () => {
           <img
             src="/images/logo.png"
             alt="logo"
-            className="cursor-pointer w-20 h-20"
+            className="cursor-pointer w-10 h-10 "
           />
         </div>
 
@@ -219,7 +219,7 @@ const BettingPage = () => {
               onChange={(e) => setCode(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 pb-3">
             <input
               type="text"
               className="X-form-control"
@@ -236,8 +236,12 @@ const BettingPage = () => {
                 <tr key={index} className="gameBorder">
                   <td style={{ width: "20%", paddingRight: 0 }}>
                     <p style={{ color: "gray" }}>{game.league}</p>
-                    
-                    <img src={game.homeTeamLogo} alt={game.homeTeam} className="w-10 h-10"/>
+
+                    <img
+                      src={game.homeTeamLogo}
+                      alt={game.homeTeam}
+                      className="w-10 h-10"
+                    />
                   </td>
                   <td valign="middle">
                     <p>vs</p>
@@ -246,7 +250,11 @@ const BettingPage = () => {
                     style={{ textAlign: "right", paddingLeft: 0, width: "20%" }}
                   >
                     <p style={{ color: "gray" }}>{game.date}</p>
-                    <img src={game.awayTeamLogo} alt={game.awayTeam} className="w-10 h-10"/>
+                    <img
+                      src={game.awayTeamLogo}
+                      alt={game.awayTeam}
+                      className="w-10 h-10"
+                    />
                     <p>{game.awayTeam}</p>
                   </td>
                   <td valign="middle">
@@ -272,11 +280,18 @@ const BettingPage = () => {
 
             {!isSendable && (
               <button
-                className="bg-[#e4e4e4] py-2 px-7 m-6 mx-4 rounded-full"
-                disabled
+                className="my-4 inline-flex items-center justify-center p-3 text-base  rounded-lg bg-gradient-to-r from-btncol to-btncol2 hover:from-btncol2 hover:to-btncol"
+                onClick={send}
               >
-                {" "}
-                Create My PIX Slip
+                <img
+                  className="w-5 h-5 me-3"
+                  src="/images/arrow.png"
+                  alt="img"
+                />{" "}
+                <span className=" font-ProLight italic">
+                  Create My{" "}
+                  <span className="font-bold not-italic ">PIX Slip</span>
+                </span>
               </button>
             )}
           </div>

@@ -1,6 +1,5 @@
 body {
   background-image: url("/images/bg.png");
-  background-size: cover;
   background-repeat: no-repeat;
   height: 100vh; /* or any desired height */
 }
@@ -9,6 +8,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh; /* or any desired height */
+}
+
+background-nav {
+  background-size: cover;
+  height: 100vh;
 }
 
 p {
@@ -75,7 +79,6 @@ p {
   }
 
   .custom-table > tbody > tr > td {
-    padding: 0.7rem 1.3rem;
   }
 
   p {

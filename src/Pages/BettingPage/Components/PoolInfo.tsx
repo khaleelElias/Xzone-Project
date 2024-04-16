@@ -26,7 +26,7 @@ const PoolInfo = () => {
   return (
     <>
       <div className=" grid grid-flow-row gap-4 justify-center items-center text-center sm:grid-flow-col sm:auto-cols-max sm:gap-10	">
-        <div>
+        <div className="hidden lg:block">
           <img
             src="/images/userw.png"
             alt="logo"
@@ -45,7 +45,7 @@ const PoolInfo = () => {
             :
           </h1>
         </div>
-        <div>
+        <div className="hidden lg:block">
           <img src="/images/moneyw.png" alt="logo" className=" w-12 h-12" />
         </div>
         <div className="font-ProLight text-white">
