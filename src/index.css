@@ -4,6 +4,76 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Book"; /*Can be any text*/
+  src:
+    local("AvenirLTProBook"),
+    url("./fonts/AvenirLTProBook.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Modern"; /*Can be any text*/
+  src:
+    local("Modern"),
+    url("./fonts/Modernline.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Seg"; /*Can be any text*/
+  src:
+    local("SegUIVar"),
+    url("./font/SegUIVar.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "ProLight"; /*Can be any text*/
+  src:
+    local("AvenirLTProLight"),
+    url("./fonts/AvenirLTProLight.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "ProLightOblique"; /*Can be any text*/
+  src:
+    local("AvenirLTProLightOblique"),
+    url("./fonts/AvenirLTProLightOblique.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "ProOblique"; /*Can be any text*/
+  src:
+    local("AvenirLTProOblique"),
+    url("./fonts/AvenirLTProOblique.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "ProMedOblique"; /*Can be any text*/
+  src:
+    local("AvenirLTProMedOblique"),
+    url("./fonts/AvenirLTProMediumOblique.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "ProBlackOblique"; /*Can be any text*/
+  src:
+    local("AvenirLTProBlackOblique"),
+    url("./fonts/Avenir_LT_Std_95_Black_Oblique.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "HeavyOblique"; /*Can be any text*/
+  src:
+    local("AvenirLTProHeavyOblique"),
+    url("./fonts/Avenir_LT_Std_85_Heavy_Oblique.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Heavy"; /*Can be any text*/
+  src:
+    local("AvenirLTProHeavy"),
+    url("./fonts/Avenir_LT_Std_85_Heavy.otf") format("opentype");
+}
+
 * html {
   padding: 0;
   margin: 0;
@@ -40,69 +110,3 @@ body {
   align-items: center;
   padding: 2rem;
 }
-
-@font-face {
-  font-family: "Book";   /*Can be any text*/
-  src: local("AvenirLTProBook"),
-    url("./fonts/AvenirLTProBook.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "Modern";   /*Can be any text*/
-  src: local("Modern"),
-    url("./fonts/Modernline.otf") format("opentype");
-}
-
-
-@font-face {
-  font-family: "Seg";   /*Can be any text*/
-  src: local("SegUIVar"),
-    url("./font/SegUIVar.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "ProLight";   /*Can be any text*/
-  src: local("AvenirLTProLight"),
-    url("./fonts/AvenirLTProLight.otf") format("opentype");
-}
-
-
-@font-face {
-  font-family: "ProLightOblique";   /*Can be any text*/
-  src: local("AvenirLTProLightOblique"),
-    url("./fonts/AvenirLTProLightOblique.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "ProOblique";   /*Can be any text*/
-  src: local("AvenirLTProOblique"),
-    url("./fonts/AvenirLTProOblique.otf") format("opentype");
-}
-
-
-@font-face {
-  font-family: "ProMedOblique";   /*Can be any text*/
-  src: local("AvenirLTProMedOblique"),
-    url("./fonts/AvenirLTProMediumOblique.otf") format("opentype");
-}
-
-
-@font-face {
-  font-family: "ProBlackOblique";   /*Can be any text*/
-  src: local("AvenirLTProBlackOblique"),
-    url("./fonts/Avenir_LT_Std_95_Black_Oblique.otf") format("opentype");
-}
-
-
-@font-face {
-  font-family: "HeavyOblique";   /*Can be any text*/
-  src: local("AvenirLTProHeavyOblique"),
-    url("./fonts/Avenir_LT_Std_85_Heavy_Oblique.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "Heavy";   /*Can be any text*/
-  src: local("AvenirLTProHeavy"),
-    url("./fonts/Avenir_LT_Std_85_Heavy.otf") format("opentype");
-}
-

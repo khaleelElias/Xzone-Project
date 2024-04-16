@@ -7,26 +7,31 @@ const HomePage = () => {
           alt="logo"
           className="cursor-pointer h-65 py-10 w-60 "
         />
-        <h1 className="text-3xl text-white pb-12">
+        <h1 className="text-3xl text-white pb-12 font-Book">
           Place your{" "}
-          <span className="text-blueish">
+          <span className="text-blueish front-HeavyOblique italic">
             first
-            <br /> PIX Slip for <span className="text-pinkish">free</span>
+            <br /> PIX Slip{" "}
+            <span className="text-white font-Book not-italic">for </span>
+            <span className="text-pinkish front-HeavyOblique italic">free</span>
           </span>
         </h1>
-        <h2 className="text-white text-sm	 items-left justify-left">
-          Test your intuition and skills. Try to <span>beat </span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-pink-500">
-            Everyone
+        <h2 className="text-white text-sm	 items-left justify-left font-ProLight">
+          Test your intuition and skills. Try to{" "}
+          <span className="font-Modern">beat </span>
+          <span className="text-transparent bg-clip-text font-ProLight italic bg-gradient-to-r to-blue-500 from-pink-500">
+            EVERYONE
           </span>
         </h2>
 
         <a
-          href="href=/pixslip"
-          className="my-4 inline-flex items-center justify-center p-3 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+          href="/pixslip"
+          className="my-4 inline-flex items-center justify-center p-3 text-base  rounded-lg bg-gradient-to-r from-btncol to-btncol2 hover:from-btncol2 hover:to-btncol"
         >
           <img className="w-5 h-5 me-3" src="/images/arrow.png" alt="logo" />{" "}
-          <span className="w-full">Get Starteds</span>
+          <span className=" font-ProLight italic">
+            Get <span className="font-bold not-italic ">Started</span>
+          </span>
         </a>
       </div>
     </div>
