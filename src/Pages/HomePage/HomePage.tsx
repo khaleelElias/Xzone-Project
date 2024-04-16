@@ -19,7 +19,7 @@ const HomePage = () => {
         <h2 className="text-white text-sm	 items-left justify-left font-ProLight">
           Test your intuition and skills. Try to{" "}
           <span className="font-Modern">beat </span>
-          <span className="text-transparent bg-clip-text font-ProLight italic bg-gradient-to-r to-blue-500 from-pink-500">
+          <span className="text-transparent bg-clip-text font-Amsi italic bg-gradient-to-r to-blue-500 from-pink-500">
             EVERYONE
           </span>
         </h2>
