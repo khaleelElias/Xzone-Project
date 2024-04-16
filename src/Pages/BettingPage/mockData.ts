@@ -8,7 +8,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "Premier League",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.85,
+        "drawBet": 4.25,
+        "awayBet": 4.60
     },
     {
         "homeTeam": "Real Madrid",
@@ -17,7 +20,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "La Liga",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.70,
+        "drawBet": 4.50,
+        "awayBet": 5.20
     },
     {
         "homeTeam": "Bayern Munich",
@@ -26,7 +32,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "Bundesliga",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.90,
+        "drawBet": 4.00,
+        "awayBet": 4.50
     },
     {
         "homeTeam": "Paris Saint-Germain",
@@ -35,7 +44,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "Ligue 1",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.80,
+        "drawBet": 4.20,
+        "awayBet": 5.10
     },
     {
         "homeTeam": "Chelsea",
@@ -44,7 +56,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "Premier League",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.75,
+        "drawBet": 4.50,
+        "awayBet": 4.80
     },
     {
         "homeTeam": "Juventus",
@@ -53,7 +68,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "Serie A",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.95,
+        "drawBet": 4.00,
+        "awayBet": 4.00
     },
     {
         "homeTeam": "Atletico Madrid",
@@ -62,7 +80,10 @@ export const mockGames : IBetSlip[]  = [
         "league": "La Liga",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.85,
+        "drawBet": 4.30,
+        "awayBet": 4.70
     },
     {
         "homeTeam": "Manchester City",
@@ -71,7 +92,9 @@ export const mockGames : IBetSlip[]  = [
         "league": "Premier League",
         "homePicked": false,
         "drawPicked": false,
-        "awayPicked": false
+        "awayPicked": false,
+        "homeBet": 1.65,
+        "drawBet": 4.60,
+        "awayBet": 5.00
     }
 ]
-

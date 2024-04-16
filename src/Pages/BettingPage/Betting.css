@@ -1,18 +1,10 @@
 body {
     background: rgb(46, 0, 51);
     background: radial-gradient(circle, rgba(46, 0, 51, 1) 0%, rgba(1, 0, 20, 1) 100%);
-    font-size: 16px;
-}
-
-p {
-    font-size: 1rem;;
 }
 
 .custom-table {
-    border-collapse: separate;
     border-spacing: 0 1.2rem;
-    width: 80%;
-    max-width: 1000px;
     color: white;
 }
 
@@ -21,30 +13,56 @@ p {
 }
 
 .custom-table>tbody>tr>td {
-    padding: 1rem 2rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
+.custom-table>tbody>tr>td:last-child {
+    padding-right: 15px;
+}
+
+.custom-table>tbody>tr>td:first-child {
+    padding-left: 15px;
+}
+
+p.game-league {
+    border: 1px solid #6082B6;
+    border-radius: 15px;
+    padding: 0px 10px;
+    color: #6082B6;
+}
+
+p.game-time {
+    color: #FF69B4;
+}
+
+div.game-vertical-line {
+    border-left: 1px solid #FF69B4;
+    height: 30px;
+}
 
 .checkboxBorder {
     color: black;
-    font-weight: 600;
-    width: 50px;
+    font-weight: 500;
+    width: 80px;
     height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
-    background-color: #2a253a;
+    background-color: #623073;
+    color: #AAFF00;
+    padding: 0px 10px;
+    font-size: 10px;
+    transition: background-color 0.5s ease;
 }
 
 .checked {
-    background-color: #00427a;
-    color: white;
+    background: rgb(255, 105, 180);
+    background: linear-gradient(90deg, rgba(255, 105, 180, 1) 0%, rgba(0, 234, 255, 1) 100%);
+    color: #623073;
 }
 
 .disabled {
     background-color: lightgrey;
-    color:gray;
+    color: gray;
 
 }
 
@@ -55,10 +73,11 @@ p {
     align-items: center;
 }
 
-@media screen and (max-width: 1000px) {
-    body {
-        font-size: 10px;
-    }
+.games-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1200px) {
 
     .custom-table {
         border-spacing: 0 0.9rem;
@@ -66,38 +85,25 @@ p {
     }
 
     .checkboxBorder {
-        width:30px;
-    }
-
-    .custom-table>tbody>tr>td {
-        padding: 0.7rem 1.3rem;
-    }
-
-    p {
-        font-size: 0.7rem;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    body {
+        width: 25px;
         font-size: 8px;
     }
 
-    .custom-table {
-        border-spacing: 0 0.6rem;
-        width:100%;
-    }
-
-    .checkboxBorder {
-        width: 15px;
-        height: 15px;
-    }
-
+    /*
     .custom-table>tbody>tr>td {
-        padding: 0.4rem 0.8rem;
+        padding: 15px;
+    }
+*/
+
+}
+
+@media screen and (max-width: 900px) {
+    .games-tablet {
+        display: none;
     }
 
-    p {
-        font-size: 0.4rem;
+    .games-mobile {
+        display:block;
     }
+
 }

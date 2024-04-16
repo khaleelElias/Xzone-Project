@@ -6,4 +6,7 @@ export interface IBetSlip {
     homePicked: boolean;
     drawPicked: boolean;
     awayPicked: boolean;
+    homeBet: number;
+    drawBet: number;
+    awayBet: number;
 }
