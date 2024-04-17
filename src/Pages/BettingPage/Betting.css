@@ -1,34 +1,33 @@
 body {
-  background-image: url("/images/bg.png");
-  background-repeat: no-repeat;
+    background-image: url("/images/bg.png");
+    background-repeat: no-repeat;
 }
 
 .background {
-  background-size: cover;
-  background-repeat: no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 background-nav {
-  background-size: cover;
-  height: 100vh;
+    background-size: cover;
+    height: 100vh;
 }
 
 p {
-  font: 1rem;
+    font: 1rem;
 }
+
 /*Match cards*/
 .custom-table {
     border-spacing: 0 1.2rem;
     color: white;
 }
 
-.custom-table > tbody > tr > td {
-  padding: 1rem 2rem;
-}
-
 .custom-table>tbody>tr>td {
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left:10px;
+    padding-right:10px;
 }
 
 .custom-table>tbody>tr>td:last-child {
@@ -87,10 +86,10 @@ div.game-vertical-line {
 }
 
 .checkboxContainer {
-  display: flex;
-  gap: 10px;
-  justify-content: end;
-  align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
 }
 
 .games-mobile {
@@ -103,10 +102,9 @@ div.game-vertical-line {
 
 @media screen and (max-width: 1200px) {
 
-  .custom-table {
-    border-spacing: 0 0.9rem;
-    width: 100%;
-  }
+    .custom-table {
+        border-spacing: 0 0.9rem;
+    }
 
     .checkboxBorder {
         width: 25px;
@@ -127,7 +125,7 @@ div.game-vertical-line {
     }
 
     .games-mobile {
-        display:block;
+        display: block;
     }
 
 }

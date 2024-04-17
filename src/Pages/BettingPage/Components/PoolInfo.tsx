@@ -25,7 +25,7 @@ const PoolInfo = () => {
 
   return (
     <>
-      <div className=" grid grid-flow-row gap-4 justify-center items-center text-center sm:grid-flow-col sm:auto-cols-max sm:gap-10	">
+      <div className="flex gap-4 justify-center">
         <div className="hidden lg:block">
           <img
             src="/images/userw.png"
@@ -33,26 +33,26 @@ const PoolInfo = () => {
             className=" w-10 h-10 md:w-4 h-4"
           />
         </div>
-        <div className="font-ProLight text-white">
+        <div className="font-ProLight text-white text-sm md:text-base">
           Number of <br />
           Participants
         </div>
-        <div className="font-ProBlackOblique text-blueish text-5xl">
+        <div className="font-ProBlackOblique text-blueish text-2xl md:text-5xl">
           {participantCount}
         </div>
         <div>
-          <h1 className="hidden lg:block text-5xl text-transparent bg-clip-text font-ProLight not-italic bg-gradient-to-r to-blue-500 from-pink-500">
+          <h1 className="hidden lg:block text-xl md:text-5xl text-transparent bg-clip-text font-ProLight not-italic bg-gradient-to-r to-blue-500 from-pink-500">
             :
           </h1>
         </div>
         <div className="hidden lg:block">
           <img src="/images/moneyw.png" alt="logo" className=" w-12 h-12" />
         </div>
-        <div className="font-ProLight text-white">
+        <div className="font-ProLight text-white text-sm md:text-base">
           Current <br />
           Pool Size:
         </div>
-        <div className="font-ProBlackOblique text-blueish text-5xl ">
+        <div className="font-ProBlackOblique text-blueish text-2xl md:text-5xl ">
           20.000 *
         </div>
       </div>

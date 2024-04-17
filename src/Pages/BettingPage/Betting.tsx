@@ -188,7 +188,7 @@ const BettingPage = () => {
             {games.map((game, index) => (
               <tr key={index} className='gameBorder p-2'>
                 <td>
-                  <div className='flex items-center gap-1 flexBreaker'>
+                  <div className='flex items-center gap-1 items-center'>
                     <p className='game-league text-xs md:text-sm'>
                       {game.league}
                     </p>
@@ -196,17 +196,17 @@ const BettingPage = () => {
                   </div>
                 </td>
                 <td>
-                  <div className='flex justify-end text-xs md:text-base'>
+                  <div className='flex justify-end text-xs md:text-base items-center gap-2.5'>
                     <p className='text-right'>{game.homeTeam}</p>
-                    <img src="/" alt="" />
+                    <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 32, height: 32 }} />
                   </div>
                 </td>
                 <td valign='middle' className='text-xs px-2.5 text-center'>
                   <p>vs</p>
                 </td>
                 <td >
-                  <div className='flex justify-start text-xs md:text-base'>
-                    <img src="/" alt="" />
+                  <div className='flex justify-start text-xs md:text-base items-center gap-2.5'>
+                    <img className="object-contain" src={game.awayTeamLogo} alt="" style={{ width: 32, height: 32 }} />
                     <p>{game.awayTeam}</p>
                   </div>
                 </td>
@@ -235,16 +235,12 @@ const BettingPage = () => {
                     <p className='game-time text-xs'>{game.date}</p>
                   </div>
 
-                  <div className='flex text-xs font-semibold' style={{ paddingTop: '10px' }}>
-                    <div>
-                      <img src="/" alt="" />
-                      <p>{game.homeTeam}</p>
-                    </div>
+                  <div className='flex text-xs font-semibold items-center gap-1.5' style={{ paddingTop: '10px' }}>
+                    <p>{game.homeTeam}</p>
+                    <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 16, height: 16 }} />
                     <p style={{ whiteSpace: 'pre' }}>   -   </p>
-                    <div>
-                      <img src="/" alt="" />
-                      <p>{game.awayTeam}</p>
-                    </div>
+                    <img className="object-contain" src={game.awayTeamLogo} alt="" style={{ width: 16, height: 16 }} />
+                    <p>{game.awayTeam}</p>
                   </div>
                 </td>
 
