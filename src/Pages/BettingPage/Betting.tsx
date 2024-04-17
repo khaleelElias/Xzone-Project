@@ -218,7 +218,6 @@ const BettingPage = () => {
                 <td>
                   <div className="flex justify-end text-xs md:text-base">
                     <p className="text-right">{game.homeTeam}</p>
-                    <img src="/" alt="" />
                   </div>
                 </td>
                 <td valign="middle" className="text-xs px-2.5 text-center">
@@ -226,7 +225,6 @@ const BettingPage = () => {
                 </td>
                 <td>
                   <div className="flex justify-start text-xs md:text-base">
-                    <img src="/" alt="" />
                     <p>{game.awayTeam}</p>
                   </div>
                 </td>
