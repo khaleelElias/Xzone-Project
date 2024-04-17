@@ -83,23 +83,44 @@ const BettingPage = () => {
   };
 
   const renderCheckboxes = (game: IBetSlip, index: number) => {
-    let homePickedClass = game.homePicked ? ' checked' : '';
-    let drawPickedClass = game.drawPicked ? ' checked' : '';
-    let awayPickedClass = game.awayPicked ? ' checked' : '';
+    let homePickedClass = game.homePicked ? " checked" : "";
+    let drawPickedClass = game.drawPicked ? " checked" : "";
+    let awayPickedClass = game.awayPicked ? " checked" : "";
     return (
       <>
-        <div className={`checkboxBorder text-sm flex justify-center items-center ${!game.homePicked && reachedLimit ? ' disabled' : ''} ${homePickedClass}`} onClick={game.homePicked || !reachedLimit ? () => pickHomeMatch(index) : () => { }}>
+        <div
+          className={`checkboxBorder text-sm flex justify-center items-center ${!game.homePicked && reachedLimit ? " disabled" : ""} ${homePickedClass}`}
+          onClick={
+            game.homePicked || !reachedLimit
+              ? () => pickHomeMatch(index)
+              : () => {}
+          }
+        >
           <span>1</span>
         </div>
-        <div className={`checkboxBorder text-sm flex justify-center items-center ${!game.drawPicked && reachedLimit ? ' disabled' : ''} ${drawPickedClass}`} onClick={game.drawPicked || !reachedLimit ? () => pickXMatch(index) : () => { }}>
+        <div
+          className={`checkboxBorder text-sm flex justify-center items-center ${!game.drawPicked && reachedLimit ? " disabled" : ""} ${drawPickedClass}`}
+          onClick={
+            game.drawPicked || !reachedLimit
+              ? () => pickXMatch(index)
+              : () => {}
+          }
+        >
           <span>X</span>
         </div>
-        <div className={`checkboxBorder text-sm flex justify-center items-center ${!game.awayPicked && reachedLimit ? ' disabled' : ''} ${awayPickedClass}`} onClick={game.awayPicked || !reachedLimit ? () => pickAwayMatch(index) : () => { }}>
+        <div
+          className={`checkboxBorder text-sm flex justify-center items-center ${!game.awayPicked && reachedLimit ? " disabled" : ""} ${awayPickedClass}`}
+          onClick={
+            game.awayPicked || !reachedLimit
+              ? () => pickAwayMatch(index)
+              : () => {}
+          }
+        >
           <span>2</span>
         </div>
       </>
-    )
-  }
+    );
+  };
 
   async function send() {
     try {
@@ -160,13 +181,12 @@ const BettingPage = () => {
         </div>
 
         <PoolInfo />
-        <Walletcode />
         <div className="flex flex-wrap gap-10 justify-center pt-2 ">
           <div className="flex flex-col rounded-md">
             <input
               type="text"
               className="X-form-control"
-              placeholder="code"
+              placeholder="Early access code"
               style={{ maxWidth: "200px" }}
               onChange={(e) => setCode(e.target.value)}
             />
@@ -175,24 +195,24 @@ const BettingPage = () => {
             <input
               type="text"
               className="X-form-control"
-              placeholder="wallet"
+              placeholder="Wallet Address"
               style={{ maxWidth: "200px" }}
               onChange={(e) => setWallet(e.target.value)}
             />
           </div>
         </div>
       </div>
-      <div className='centeralized-container'>
+      <div className="centeralized-container">
         <table className="custom-table table-auto border-separate games-tablet">
           <tbody>
             {games.map((game, index) => (
-              <tr key={index} className='gameBorder p-2'>
+              <tr key={index} className="gameBorder p-2">
                 <td>
                   <div className='flex items-center gap-1 items-center'>
                     <p className='game-league text-xs md:text-sm'>
                       {game.league}
                     </p>
-                    <p className='game-time text-xs'>{game.date}</p>
+                    <p className="game-time text-xs">{game.date}</p>
                   </div>
                 </td>
                 <td>
@@ -201,7 +221,7 @@ const BettingPage = () => {
                     <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 32, height: 32 }} />
                   </div>
                 </td>
-                <td valign='middle' className='text-xs px-2.5 text-center'>
+                <td valign="middle" className="text-xs px-2.5 text-center">
                   <p>vs</p>
                 </td>
                 <td >
@@ -211,10 +231,9 @@ const BettingPage = () => {
                   </div>
                 </td>
 
-                <td valign='middle'>
-                  <div className='checkboxContainer'>
+                <td valign="middle">
+                  <div className="checkboxContainer">
                     {renderCheckboxes(game, index)}
-
                   </div>
                 </td>
               </tr>
@@ -222,17 +241,15 @@ const BettingPage = () => {
           </tbody>
         </table>
       </div>
-      <div className='centeralized-container' style={{ padding: 0 }}>
+      <div className="centeralized-container" style={{ padding: 0 }}>
         <table className="custom-table table-fix border-separate games-mobile">
           <tbody>
             {games.map((game, index) => (
-              <tr key={index} className='gameBorder p-2'>
+              <tr key={index} className="gameBorder p-2">
                 <td>
-                  <div className='flex items-center gap-4'>
-                    <p className='game-league text-xs'>
-                      {game.league}
-                    </p>
-                    <p className='game-time text-xs'>{game.date}</p>
+                  <div className="flex items-center gap-4">
+                    <p className="game-league text-xs">{game.league}</p>
+                    <p className="game-time text-xs">{game.date}</p>
                   </div>
 
                   <div className='flex text-xs font-semibold items-center gap-1.5' style={{ paddingTop: '10px' }}>
@@ -244,10 +261,9 @@ const BettingPage = () => {
                   </div>
                 </td>
 
-                <td valign='middle' style={{ paddingLeft: '15px' }}>
-                  <div className='checkboxContainer'>
+                <td valign="middle" style={{ paddingLeft: "15px" }}>
+                  <div className="checkboxContainer">
                     {renderCheckboxes(game, index)}
-
                   </div>
                 </td>
               </tr>
@@ -256,20 +272,23 @@ const BettingPage = () => {
         </table>
       </div>
       <div className="flex justify-center">
-        {
-          isSendable && (
-            <button className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white" onClick={send}> Create My PIX Slip </button>
-          )
-        }
+        {isSendable && (
+          <button
+            className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white"
+            onClick={send}
+          >
+            {" "}
+            Create My PIX Slip{" "}
+          </button>
+        )}
 
-        {
-          !isSendable && (
-            <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled> Create My PIX Slip</button>
-          )
-        }
+        {!isSendable && (
+          <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled>
+            {" "}
+            Create My PIX Slip
+          </button>
+        )}
       </div>
-
-
     </>
   );
 };

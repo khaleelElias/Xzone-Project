@@ -33,10 +33,7 @@ export default function Header() {
                     </button>
                   </div>
                   <div className="mt-14 space-y-4 py-3 text-gray-600 dark:text-gray-400 text-center">
-                    <p className="text-xs">
-                      By proceeding, you agree to our and confirm you have read
-                      our
-                    </p>
+                    {"     "}
                   </div>
                 </div>
               </div>
