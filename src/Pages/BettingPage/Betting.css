@@ -1,130 +1,110 @@
-body {
-    background-color:#0f0e13;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
-}
-
-.background {
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-background-nav {
-    background-size: cover;
-    height: 100vh;
-}
-
 /*Match cards*/
 .custom-table {
-    border-spacing: 0 1.2rem;
-    color: white;
+  border-spacing: 0 1.2rem;
+  color: white;
 }
 
-.custom-table>tbody>tr>td {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left:10px;
-    padding-right:10px;
+.custom-table > tbody > tr > td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.custom-table>tbody>tr>td:last-child {
-    padding-right: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-
+.custom-table > tbody > tr > td:last-child {
+  padding-right: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
-.custom-table>tbody>tr>td:first-child {
-    padding-left: 15px;
-    border-bottom-left-radius: 15px;
-    border-top-left-radius: 15px;
-
+.custom-table > tbody > tr > td:first-child {
+  padding-left: 15px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
 }
 
 p.game-league {
-    border: 1px solid #6082B6;
-    border-radius: 15px;
-    padding: 0px 10px;
-    color: #6082B6;
+  border: 1px solid #6082b6;
+  border-radius: 15px;
+  padding: 0px 10px;
+  color: #6082b6;
 }
 
 p.game-time {
-    color: #FF69B4;
+  color: #ff69b4;
 }
 
 div.game-vertical-line {
-    border-left: 1px solid #FF69B4;
-    height: 30px;
+  border-left: 1px solid #ff69b4;
+  height: 30px;
 }
 
 .checkboxBorder {
-    color: black;
-    font-weight: 500;
-    width: 80px;
-    height: 25px;
-    cursor: pointer;
-    background-color: #623073;
-    color: #AAFF00;
-    padding: 0px 10px;
-    font-size: 10px;
-    transition: background-color 0.5s ease;
+  color: black;
+  font-weight: 500;
+  width: 80px;
+  height: 25px;
+  cursor: pointer;
+  background-color: #623073;
+  color: #aaff00;
+  padding: 0px 10px;
+  font-size: 10px;
+  transition: background-color 0.5s ease;
 }
 
 .checked {
-    background: rgb(255, 105, 180);
-    background: linear-gradient(90deg, rgba(255, 105, 180, 1) 0%, rgba(0, 234, 255, 1) 100%);
-    color: #623073;
+  background: rgb(255, 105, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 105, 180, 1) 0%,
+    rgba(0, 234, 255, 1) 100%
+  );
+  color: #623073;
 }
 
 .disabled {
-    background-color: lightgrey;
-    color: gray;
-
+  background-color: lightgrey;
+  color: gray;
 }
 
 .checkboxContainer {
-    display: flex;
-    gap: 10px;
-    justify-content: end;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  align-items: center;
 }
 
 .games-mobile {
-    display: none;
+  display: none;
 }
 
 .gameBorder {
-    background-color: #130d26;
+  background-color: #130d26;
 }
 
 @media screen and (max-width: 1200px) {
+  .custom-table {
+    border-spacing: 0 0.9rem;
+  }
 
-    .custom-table {
-        border-spacing: 0 0.9rem;
-    }
+  .checkboxBorder {
+    width: 25px;
+    font-size: 8px;
+  }
 
-    .checkboxBorder {
-        width: 25px;
-        font-size: 8px;
-    }
-
-    /*
+  /*
     .custom-table>tbody>tr>td {
         padding: 15px;
     }
 */
-
 }
 
 @media screen and (max-width: 900px) {
-    .games-tablet {
-        display: none;
-    }
+  .games-tablet {
+    display: none;
+  }
 
-    .games-mobile {
-        display: block;
-    }
-
+  .games-mobile {
+    display: block;
+  }
 }

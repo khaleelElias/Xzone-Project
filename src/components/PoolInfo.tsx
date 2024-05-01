@@ -30,7 +30,7 @@ const PoolInfo = () => {
           <img
             src="/images/userw.png"
             alt="logo"
-            className=" w-10 h-10 md:w-4 h-4"
+            className=" w-10 h-10 md:w-4 "
           />
         </div>
         <div className="font-ProLight text-white text-sm md:text-base">

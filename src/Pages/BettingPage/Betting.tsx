@@ -3,7 +3,6 @@ import { IBetSlip } from "./model";
 import "./Betting.css";
 import { mockGames } from "./mockData";
 import PoolInfo from "../../components/PoolInfo";
-import Walletcode from "../../components/Walletcode";
 import {
   addDoc,
   collection,
@@ -92,7 +91,7 @@ const BettingPage = () => {
           onClick={
             game.homePicked || !reachedLimit
               ? () => pickHomeMatch(index)
-              : () => { }
+              : () => {}
           }
         >
           <span>1</span>
@@ -102,7 +101,7 @@ const BettingPage = () => {
           onClick={
             game.drawPicked || !reachedLimit
               ? () => pickXMatch(index)
-              : () => { }
+              : () => {}
           }
         >
           <span>X</span>
@@ -112,7 +111,7 @@ const BettingPage = () => {
           onClick={
             game.awayPicked || !reachedLimit
               ? () => pickAwayMatch(index)
-              : () => { }
+              : () => {}
           }
         >
           <span>2</span>
@@ -207,25 +206,35 @@ const BettingPage = () => {
             {games.map((game, index) => (
               <tr key={index} className="gameBorder p-2">
                 <td>
-                  <div className='flex items-center gap-1 items-center'>
-                    <p className='game-league text-xs md:text-sm'>
+                  <div className="flex gap-1 items-center">
+                    <p className="game-league text-xs md:text-sm">
                       {game.league}
                     </p>
                     <p className="game-time text-xs">{game.date}</p>
                   </div>
                 </td>
                 <td>
-                  <div className='flex justify-end text-xs md:text-base items-center gap-2.5'>
-                    <p className='text-right'>{game.homeTeam}</p>
-                    <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 32, height: 32 }} />
+                  <div className="flex justify-end text-xs md:text-base items-center gap-2.5">
+                    <p className="text-right">{game.homeTeam}</p>
+                    <img
+                      className="object-contain"
+                      src={game.homeTeamLogo}
+                      alt=""
+                      style={{ width: 32, height: 32 }}
+                    />
                   </div>
                 </td>
                 <td valign="middle" className="text-xs px-2.5 text-center">
                   <p>vs</p>
                 </td>
-                <td >
-                  <div className='flex justify-start text-xs md:text-base items-center gap-2.5'>
-                    <img className="object-contain" src={game.awayTeamLogo} alt="" style={{ width: 32, height: 32 }} />
+                <td>
+                  <div className="flex justify-start text-xs md:text-base items-center gap-2.5">
+                    <img
+                      className="object-contain"
+                      src={game.awayTeamLogo}
+                      alt=""
+                      style={{ width: 32, height: 32 }}
+                    />
                     <p>{game.awayTeam}</p>
                   </div>
                 </td>
@@ -251,15 +260,28 @@ const BettingPage = () => {
                     <p className="game-time text-xs">{game.date}</p>
                   </div>
 
-                  <div className='flex text-xs font-semibold items-center gap-1.5' style={{ paddingTop: '10px' }}>
+                  <div
+                    className="flex text-xs font-semibold items-center gap-1.5"
+                    style={{ paddingTop: "10px" }}
+                  >
                     <div className="flex items-center flex-col">
                       <p>{game.homeTeam}</p>
-                      <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 16, height: 16 }} />
+                      <img
+                        className="object-contain"
+                        src={game.homeTeamLogo}
+                        alt=""
+                        style={{ width: 16, height: 16 }}
+                      />
                     </div>
-                    <p style={{ whiteSpace: 'pre' }}>   -   </p>
+                    <p style={{ whiteSpace: "pre" }}> - </p>
                     <div className="flex items-center flex-col">
                       <p>{game.awayTeam}</p>
-                      <img className="object-contain" src={game.awayTeamLogo} alt="" style={{ width: 16, height: 16 }} />
+                      <img
+                        className="object-contain"
+                        src={game.awayTeamLogo}
+                        alt=""
+                        style={{ width: 16, height: 16 }}
+                      />
                     </div>
                   </div>
                 </td>
