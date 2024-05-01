@@ -16,10 +16,6 @@ background-nav {
     height: 100vh;
 }
 
-p {
-    font: 1rem;
-}
-
 /*Match cards*/
 .custom-table {
     border-spacing: 0 1.2rem;

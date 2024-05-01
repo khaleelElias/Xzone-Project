@@ -92,7 +92,7 @@ const BettingPage = () => {
           onClick={
             game.homePicked || !reachedLimit
               ? () => pickHomeMatch(index)
-              : () => {}
+              : () => { }
           }
         >
           <span>1</span>
@@ -102,7 +102,7 @@ const BettingPage = () => {
           onClick={
             game.drawPicked || !reachedLimit
               ? () => pickXMatch(index)
-              : () => {}
+              : () => { }
           }
         >
           <span>X</span>
@@ -112,7 +112,7 @@ const BettingPage = () => {
           onClick={
             game.awayPicked || !reachedLimit
               ? () => pickAwayMatch(index)
-              : () => {}
+              : () => { }
           }
         >
           <span>2</span>
@@ -252,11 +252,15 @@ const BettingPage = () => {
                   </div>
 
                   <div className='flex text-xs font-semibold items-center gap-1.5' style={{ paddingTop: '10px' }}>
-                    <p>{game.homeTeam}</p>
-                    <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 16, height: 16 }} />
+                    <div className="flex items-center flex-col">
+                      <p>{game.homeTeam}</p>
+                      <img className="object-contain" src={game.homeTeamLogo} alt="" style={{ width: 16, height: 16 }} />
+                    </div>
                     <p style={{ whiteSpace: 'pre' }}>   -   </p>
-                    <img className="object-contain" src={game.awayTeamLogo} alt="" style={{ width: 16, height: 16 }} />
-                    <p>{game.awayTeam}</p>
+                    <div className="flex items-center flex-col">
+                      <p>{game.awayTeam}</p>
+                      <img className="object-contain" src={game.awayTeamLogo} alt="" style={{ width: 16, height: 16 }} />
+                    </div>
                   </div>
                 </td>
 
