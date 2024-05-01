@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import db from "../../../firebase/firebase";
+import db from "../firebase/firebase";
 
 const PoolInfo = () => {
   const [participantCount, setParticipantCount] = useState(0);

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { IBetSlip } from "./model";
 import "./Betting.css";
 import { mockGames } from "./mockData";
-import PoolInfo from "./Components/PoolInfo";
-import Walletcode from "./Components/Walletcode";
+import PoolInfo from "../../components/PoolInfo";
+import Walletcode from "../../components/Walletcode";
 import {
   addDoc,
   collection,
@@ -14,8 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 import db from "../../firebase/firebase";
-import Popup from "./Components/Popup";
-import Match from "./Components/Match";
+import Popup from "../../components/Popup";
 
 const BettingPage = () => {
   const MAX_BETTING_PICKS = 10;
