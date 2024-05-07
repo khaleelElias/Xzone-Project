@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AdminCreateBetslip from "../../components/adminComponent/AdminCreateBetslip";
+import AdminHistoricalBetslip from "../../components/adminComponent/AdminHistoricalBetslip";
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("home");
@@ -21,7 +22,7 @@ const AdminPage: React.FC = () => {
             onClick={() => setActiveTab("home")}
             role="tab"
           >
-            Home
+            Create Bet Slip
           </a>
         </li>
         <li role="presentation" className="flex-auto text-center">
@@ -34,7 +35,7 @@ const AdminPage: React.FC = () => {
             onClick={() => setActiveTab("profile")}
             role="tab"
           >
-            Profile
+            Historical Bet Slips
           </a>
         </li>
         <li role="presentation" className="flex-auto text-center">
@@ -47,7 +48,7 @@ const AdminPage: React.FC = () => {
             onClick={() => setActiveTab("betslip")}
             role="tab"
           >
-            Bet Slip
+            Test Tab
           </a>
         </li>
       </ul>
@@ -56,17 +57,18 @@ const AdminPage: React.FC = () => {
       <div className="mb-6">
         {activeTab === "home" && (
           <div className="block opacity-100 transition-opacity duration-150 ease-linear">
-            Tab 1 content
+            <AdminCreateBetslip />
           </div>
         )}
         {activeTab === "profile" && (
           <div className="block opacity-100 transition-opacity duration-150 ease-linear">
-            Tab 2 content
+            <AdminHistoricalBetslip />
           </div>
         )}
         {activeTab === "betslip" && (
-          <div className="block opacity-100 transition-opacity duration-150 ease-linear">
-            <AdminCreateBetslip />
+          <div className="block text-white opacity-100 transition-opacity duration-150 ease-linear">
+            hello
+            {/* This is a placeholder for whatever you decide to place here. */}
           </div>
         )}
       </div>
