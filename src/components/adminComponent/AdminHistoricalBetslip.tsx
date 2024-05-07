@@ -1,47 +1,133 @@
-import { DocumentData, collection, getDocs } from "firebase/firestore"; // Make sure this import is correct based on your project setup
-import { useEffect, useState } from "react";
-import db from "../../firebase/firebase";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-interface Week {
-  id: string;
-  data: DocumentData;
+interface Game {
+  id: number;
+  matches: Match[];
+  status: "Preparing" | "Started" | "Running" | "Ended";
+  date: string;
 }
 
-function AdminHistoricalBetslip() {
-  const [weeks, setWeeks] = useState<Week[]>([]); // Explicitly type the state as an array of 'Week'
+interface Match {
+  opponent1: string;
+  opponent2: string;
+  gameDateTime: string;
+  gameLeague: string;
+  gameResult: "home" | "draw" | "away";
+  finalResult: number;
+}
+
+const AdminHistoricalBetslip = () => {
+  const [games, setGames] = useState<Game[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchWeeks = async () => {
-      const weekCollectionRef = collection(db, "Games");
-      const snapshot = await getDocs(weekCollectionRef);
-      const weeksData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        data: doc.data() as DocumentData, // Ensure the data is treated as DocumentData
-      }));
-      setWeeks(weeksData);
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/games");
+        setGames(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError("Failed to fetch games");
+        console.error("Failed to fetch games:", error);
+        setLoading(false);
+      }
     };
 
-    console.log(weeks, "kalle");
-    fetchWeeks();
+    fetchGames();
   }, []);
 
+  if (loading) return <p className="text-center text-lg">Loading...</p>;
+  if (error)
+    return <p className="text-center text-lg text-red-500">Error: {error}</p>;
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {weeks.length > 0 ? (
-        weeks.map((week) => (
-          <div
-            key={week.id}
-            className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center"
+    <div className="p-4 max-w-7xl mx-auto space-y-4 text-black">
+      <h1 className="text-2xl font-bold mb-4">Historical Betslips</h1>
+      <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+        {games.map((game) => (
+          <details
+            key={game.id}
+            className="mb-4 bg-gray-100 p-4 rounded-lg shadow"
           >
-            <h3 className="text-lg font-semibold">Week {week.id}</h3>
-            <p>Additional data here</p> // Customize as needed
-          </div>
-        ))
-      ) : (
-        <p>No weeks data found.</p>
-      )}
+            <summary className="font-bold cursor-pointer flex justify-between items-center">
+              {new Date(game.date).toLocaleDateString()} (Week{" "}
+              {calculateWeek(game.date)})
+              <span className="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                Status: {game.status}
+              </span>
+            </summary>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+              {game.matches.map((match, index) => (
+                <MatchCard
+                  key={index}
+                  match={match}
+                  editable={game.status !== "Ended"}
+                />
+              ))}
+            </div>
+          </details>
+        ))}
+      </div>
     </div>
   );
+};
+
+// Helper function to calculate the week number based on the date
+function calculateWeek(dateStr: string): number {
+  const date = new Date(dateStr);
+  const startOfYear = new Date(date.getFullYear(), 0, 1);
+  const days = Math.floor(
+    (date.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000)
+  );
+  return Math.ceil((date.getDay() + 1 + days) / 7);
 }
+
+const MatchCard = ({
+  match,
+  editable,
+}: {
+  match: Match;
+  editable: boolean;
+}) => {
+  return (
+    <div className="bg-white p-4 shadow-md rounded-lg space-y-2">
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Opponent 1:
+        </label>
+        {editable ? (
+          <input
+            type="text"
+            value={match.opponent1}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          />
+        ) : (
+          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
+            {match.opponent1}
+          </p>
+        )}
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Opponent 2:
+        </label>
+        {editable ? (
+          <input
+            type="text"
+            value={match.opponent2}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          />
+        ) : (
+          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
+            {match.opponent2}
+          </p>
+        )}
+      </div>
+      {/* Additional fields for other match attributes can be added similarly */}
+    </div>
+  );
+};
 
 export default AdminHistoricalBetslip;
