@@ -10,9 +10,9 @@ interface Game {
 
 interface Match {
   opponent1: string;
-  score1: number | null;
+  score1: number;
   opponent2: string;
-  score2: number | null;
+  score2: number;
   gameDateTime: string;
   gameLeague: string;
   gameResult: "home" | "draw" | "away";
@@ -25,10 +25,10 @@ interface MatchCardProps {
   onChange: (match: Match) => void;
 }
 
-const Testing = () => {
+const Working_testingcode = () => {
   const [games, setGames] = useState<Game[]>([]);
-  const [, setLoading] = useState(true);
-  const [, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -63,9 +63,7 @@ const Testing = () => {
 
   return (
     <div className="p-4 max-w-7xl mx-auto space-y-4 text-black">
-      <h1 className="text-2xl font-bold mb-4 text-white">
-        Historical Betslips
-      </h1>
+      <h1 className="text-2xl font-bold mb-4">Historical Betslips</h1>
       <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
         {games.map((game) => (
           <GameDetail key={game.id} game={game} onSave={handleSave} />
@@ -123,18 +121,8 @@ const GameDetail = ({
 const MatchCard: React.FC<MatchCardProps> = ({ match, editable, onChange }) => {
   const [editMatch, setEditMatch] = useState(match);
 
-  const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedMatch = { ...editMatch, [e.target.name]: e.target.value };
-    setEditMatch(updatedMatch);
-    onChange(updatedMatch);
-  };
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedMatch = { ...editMatch, gameDateTime: e.target.value };
     setEditMatch(updatedMatch);
     onChange(updatedMatch);
   };
@@ -159,6 +147,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, editable, onChange }) => {
           </p>
         )}
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Opponent 2:
@@ -177,128 +166,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, editable, onChange }) => {
           </p>
         )}
       </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Score 1:
-        </label>
-        {editable ? (
-          <select
-            name="score1"
-            value={editMatch.score1 !== null ? editMatch.score1.toString() : ""}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          >
-            <option value="">Select Score</option>
-            {[...Array(11).keys()].map((num) => (
-              <option key={num} value={num}>
-                {num}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
-            {match.score1}
-          </p>
-        )}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Score 2:
-        </label>
-        {editable ? (
-          <select
-            name="score2"
-            value={editMatch.score2 !== null ? editMatch.score2.toString() : ""}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          >
-            <option value="">Select Score</option>
-            {[...Array(11).keys()].map((num) => (
-              <option key={num} value={num}>
-                {num}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
-            {match.score2}
-          </p>
-        )}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Game Date and Time:
-        </label>
-        {editable ? (
-          <input
-            type="datetime-local"
-            name="gameDateTime"
-            value={
-              editMatch.gameDateTime ? editMatch.gameDateTime.slice(0, 16) : ""
-            }
-            onChange={handleDateChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        ) : (
-          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
-            {new Date(match.gameDateTime).toLocaleString()}
-          </p>
-        )}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Game League:
-        </label>
-        {editable ? (
-          <input
-            type="text"
-            name="gameLeague"
-            value={editMatch.gameLeague}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        ) : (
-          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
-            {match.gameLeague}
-          </p>
-        )}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Game Result:
-        </label>
-        {editable ? (
-          <input
-            type="text"
-            name="finalResult"
-            value={editMatch.gameResult}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        ) : (
-          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
-            {match.gameResult}
-          </p>
-        )}
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Final Result:
-        </label>
-        {editable ? (
-          <input
-            type="number"
-            name="finalResult"
-            value={editMatch.finalResult}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-          />
-        ) : (
-          <p className="mt-1 block w-full p-2 bg-gray-50 rounded-md">
-            {match.finalResult}
-          </p>
-        )}
-      </div>
     </div>
   );
 };
@@ -312,4 +179,4 @@ function calculateWeek(dateStr: string): number {
   return Math.ceil((date.getDay() + 1 + days) / 7);
 }
 
-export default Testing;
+export default Working_testingcode;

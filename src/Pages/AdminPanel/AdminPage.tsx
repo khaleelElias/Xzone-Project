@@ -68,9 +68,7 @@ const AdminPage: React.FC = () => {
           </div>
         )}
         {activeTab === "betslip" && (
-          <div className="block text-white opacity-100 transition-opacity duration-150 ease-linear">
-            <AdminHistoricalBetslip />
-          </div>
+          <div className="block text-white opacity-100 transition-opacity duration-150 ease-linear"></div>
         )}
       </div>
     </div>

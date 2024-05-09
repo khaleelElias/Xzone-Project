@@ -5,9 +5,9 @@ import axios from "axios";
 
 interface Game {
   opponent1: string;
-  score1: number;
+  score1: number | null;
   opponent2: string;
-  score2: number;
+  score2: number | null;
   GameDateTime: Date;
   gameLeague: string;
   GameResult: "null" | "home" | "draw" | "away";
@@ -24,9 +24,9 @@ const AdminCreateBetslip = () => {
   const [matches, setMatches] = useState<Game[]>(
     Array.from({ length: 13 }, () => ({
       opponent1: "",
-      score1: 0,
+      score1: null,
       opponent2: "",
-      score2: 0,
+      score2: null,
       GameDateTime: new Date(),
       gameLeague: "",
       GameResult: "null",
@@ -100,30 +100,30 @@ const AdminCreateBetslip = () => {
               />
 
               <select
-                value={match.score1.toString()}
+                value={match.score1 !== null ? match.score1.toString() : ""}
                 onChange={(e) =>
                   handleInputChange(index, "score1", parseInt(e.target.value))
                 }
                 className="block w-full p-2 bg-white border border-gray-300 rounded mb-2"
               >
-                <option value="0">Select Score</option>
-                {[...Array(10).keys()].map((n) => (
-                  <option key={n + 1} value={n + 1}>
-                    {n + 1}
+                <option value="null">Select Score</option>
+                {[...Array(11).keys()].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
                   </option>
                 ))}
               </select>
               <select
-                value={match.score2.toString()}
+                value={match.score2 !== null ? match.score2.toString() : ""}
                 onChange={(e) =>
                   handleInputChange(index, "score2", parseInt(e.target.value))
                 }
                 className="block w-full p-2 bg-white border border-gray-300 rounded mb-2"
               >
-                <option value="0">Select Score</option>
-                {[...Array(10).keys()].map((n) => (
-                  <option key={n + 1} value={n + 1}>
-                    {n + 1}
+                <option value="null">Select Score</option>
+                {[...Array(11).keys()].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
                   </option>
                 ))}
               </select>
