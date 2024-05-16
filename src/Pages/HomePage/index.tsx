@@ -1,5 +1,6 @@
-import Match from "../../components/Match";
-import AdminHistoricalBetslip from "../../components/adminComponent/AdminHistoricalBetslip";
+import Match from "@/components/Match";
+import AdminHistoricalBetslip from "@/components/adminComponent/AdminHistoricalBetslip";
+
 const HomePage = () => {
   return (
     <>

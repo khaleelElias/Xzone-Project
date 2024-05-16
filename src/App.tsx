@@ -1,8 +1,8 @@
 import "./App.css";
 import { Route, Routes } from "react-router";
-import BettingPage from "./Pages/BettingPage/Betting";
-import HomePage from "./Pages/HomePage/HomePage";
-import AdminPage from "./Pages/AdminPanel/AdminPage";
+import BettingPage from "./Pages/BettingPage";
+import HomePage from "./Pages/HomePage";
+import AdminPage from "./Pages/AdminPanel";
 function App() {
   return (
     <>

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+
+import api from "@/services/api";
 
 interface Game {
   id: number;
@@ -25,12 +26,12 @@ const AdminHistoricalBetslip = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/games");
+        const response = await api.get("/games");
         setGames(response.data);
-        setLoading(false);
       } catch (error) {
         setError("Failed to fetch games");
         console.error("Failed to fetch games:", error);
+      } finally {
         setLoading(false);
       }
     };

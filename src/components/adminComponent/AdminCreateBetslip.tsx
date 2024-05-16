@@ -1,35 +1,36 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 
-interface Game {
+import api from "@/services/api";
+
+interface Match {
   opponent1: string;
   score1: number | null;
   opponent2: string;
   score2: number | null;
-  GameDateTime: Date;
-  gameLeague: string;
-  GameResult: "null" | "home" | "draw" | "away";
+  startDate: Date;
+  league: string;
+  result: "null" | "home" | "draw" | "away";
   finalResult: number;
 }
 
-interface NewGame {
-  matches: Game[];
-  status: string;
+interface Game {
+  matches: Match[];
+  status?: string;
   date: Date;
 }
 
 const AdminCreateBetslip = () => {
-  const [matches, setMatches] = useState<Game[]>(
+  const [matches, setMatches] = useState<Match[]>(
     Array.from({ length: 13 }, () => ({
       opponent1: "",
       score1: null,
       opponent2: "",
       score2: null,
-      GameDateTime: new Date(),
-      gameLeague: "",
-      GameResult: "null",
+      startDate: new Date(),
+      league: "",
+      result: "null",
       finalResult: 0,
     }))
   );
@@ -37,7 +38,7 @@ const AdminCreateBetslip = () => {
 
   const handleInputChange = (
     index: number,
-    field: keyof Game,
+    field: keyof Match,
     value: string | Date | number
   ) => {
     const newMatches = matches.map((match, i) => {
@@ -50,14 +51,13 @@ const AdminCreateBetslip = () => {
   };
 
   const saveGame = async () => {
-    const newGame: NewGame = {
-      matches,
-      status: "Preparing",
-      date: gameDate,
-    };
-
     try {
-      const response = await axios.post("http://localhost:3000/games", newGame);
+      const newGame: Game = {
+        matches,
+        date: gameDate,
+      };
+      console.log({ matches });
+      const response = await api.post("/games", newGame);
       alert(`Game saved: ${response.data.message}`);
     } catch (error: any) {
       alert(
@@ -129,9 +129,9 @@ const AdminCreateBetslip = () => {
               </select>
 
               <DatePicker
-                selected={match.GameDateTime}
+                selected={match.startDate}
                 onChange={(date: Date) =>
-                  handleInputChange(index, "GameDateTime", date)
+                  handleInputChange(index, "startDate", date)
                 }
                 showTimeSelect
                 dateFormat="Pp"
@@ -140,19 +140,19 @@ const AdminCreateBetslip = () => {
               <input
                 type="text"
                 placeholder="Enter game league"
-                value={match.gameLeague}
+                value={match.league}
                 onChange={(e) =>
-                  handleInputChange(index, "gameLeague", e.target.value)
+                  handleInputChange(index, "league", e.target.value)
                 }
                 className="p-2 bg-white border border-gray-300 rounded mb-2"
               />
             </div>
             <select
-              value={match.GameResult}
+              value={match.result}
               onChange={(e) =>
                 handleInputChange(
                   index,
-                  "GameResult",
+                  "result",
                   e.target.value as "null" | "home" | "draw" | "away"
                 )
               }
