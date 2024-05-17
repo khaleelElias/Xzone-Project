@@ -1,5 +1,5 @@
+import { GET } from "@/services/api";
 import React, { useState, useEffect } from "react";
-import api from "@/services/api";
 
 interface Game {
   id: number;
@@ -32,14 +32,13 @@ const Testing = () => {
 
   useEffect(() => {
     const fetchGames = async () => {
-      try {
-        const response = await api.get("http://localhost:5005/Games");
+      const response = await GET<Game[]>("Games");
+      if(response.success)
         setGames(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError("Failed to fetch games");
-        setLoading(false);
-      }
+      else
+        setError(response.errorMessage);
+      
+      setLoading(false);
     };
 
     fetchGames();

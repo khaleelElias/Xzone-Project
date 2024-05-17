@@ -1,11 +1,23 @@
 import { API_URL } from "@/config";
 
-const GET = async (url: string) => {
+export interface IError {
+  message: string;
+  key: string;
+}
+export interface IResponse<T> {
+  data: T;
+  error: IError[];
+  status: number;
+  success: boolean;
+  errorMessage: string;
+}
+
+const GET = async <T>(url: string) => {
   let response = await fetch(`${API_URL}/${url}`);
-  return handleResponse(response)
+  return await handleResponse<T>(response)
 }
 
-const PUT = async (url: string, body: any) => {
+const PUT = async <T>(url: string, body: any) => {
   let response = await fetch(`${API_URL}/${url}`, {
     body: JSON.stringify(body),
     headers: {
@@ -13,10 +25,10 @@ const PUT = async (url: string, body: any) => {
     }
   })
 
-  return handleResponse(response);
+  return await handleResponse<T>(response);
 }
 
-const POST = async (url:string, body: any) => {
+const POST = async <T>(url: string, body: any) => {
   let response = await fetch(`${API_URL}/${url}`, {
     body: JSON.stringify(body),
     headers: {
@@ -24,12 +36,26 @@ const POST = async (url:string, body: any) => {
     }
   })
 
-  return handleResponse(response);
+  return await handleResponse<T>(response);
 }
 
 
-const handleResponse = (response: Response) => {
-  return response;
+const handleResponse = async <T>(response: Response) => {
+  let responseObject = {} as IResponse<T>;
+  if (response.ok) {
+    responseObject.data = await response.json();
+  } else {
+    try {
+      responseObject.error = await response.json();
+    } catch (error) {
+      responseObject.errorMessage = await response.text();
+    }
+  }
+
+  responseObject.success = response.ok;
+  responseObject.status = response.status;
+
+  return responseObject;
 }
 
-export {GET, POST, PUT};
+export { GET, POST, PUT };

@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
-import { POST } from "../helper/apiHelper";
 import Modal from "../components/Modal/Modal";
+import { POST } from "@/services/api";
 
 type Props = {
     children?: ReactNode;
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }: Props) => {
                 walletAddress: resp.publicKey.toString()
             });
 
-            if(response.successful) {
+            if(response.ok) {
 
             } else {
                 if(response.status == 404) {
