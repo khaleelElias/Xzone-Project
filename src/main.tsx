@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+
 import Header from "./components/Header";
 
 const root = ReactDOM.createRoot(
@@ -11,8 +12,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Header />
-      <App />
+      <AuthProvider>
+        <Header />
+        <App />
+      </AuthProvider>
+
     </BrowserRouter>
   </React.StrictMode>
 );
