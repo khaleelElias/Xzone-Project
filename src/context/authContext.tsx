@@ -1,13 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
-import { useQuery } from "react-query";
 import { POST } from "../helper/apiHelper";
-import {
-    Button,
-    Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
-  } from "@material-tailwind/react";
 import Modal from "../components/Modal/Modal";
 
 type Props = {
