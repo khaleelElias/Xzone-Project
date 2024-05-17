@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import db from "../../../firebase/firebase";
+import db from "../firebase/firebase";
 
 const PoolInfo = () => {
   const [participantCount, setParticipantCount] = useState(0);
@@ -30,7 +30,7 @@ const PoolInfo = () => {
           <img
             src="/images/userw.png"
             alt="logo"
-            className=" w-10 h-10 md:w-4 h-4"
+            className=" w-10 h-10 md:w-4 "
           />
         </div>
         <div className="font-ProLight text-white text-sm md:text-base">
