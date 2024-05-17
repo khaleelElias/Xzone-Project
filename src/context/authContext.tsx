@@ -49,14 +49,14 @@ const AuthProvider = ({ children }: Props) => {
                 walletAddress: resp.publicKey.toString()
             });
 
-            if(response.ok) {
+            if(response.success) {
 
             } else {
                 if(response.status == 404) {
                     setRegisterOpen(true);
                 } else {
                     //TODO: warn user?
-                    console.log(response.message);
+                    console.log(response.errorMessage);
                 }
             }
 
@@ -73,7 +73,7 @@ const AuthProvider = ({ children }: Props) => {
             walletAddress: walletAddress
         });
 
-        if(!response.successful) {
+        if(!response.success) {
             //TODO: warn user?
             console.log("error")
         } else {
