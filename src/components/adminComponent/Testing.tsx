@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "@/services/api";
 
 interface Game {
   id: number;
@@ -33,7 +33,7 @@ const Testing = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/games");
+        const response = await api.get("http://localhost:5005/Games");
         setGames(response.data);
         setLoading(false);
       } catch (error) {
@@ -47,8 +47,8 @@ const Testing = () => {
 
   const handleSave = async (gameId: number, updatedGame: Game) => {
     try {
-      const response = await axios.put(
-        `http://localhost:3000/games/${gameId}`,
+      const response = await api.put(
+        `http://localhost:5005/Games/${gameId}`,
         updatedGame
       );
       const updatedGames = games.map((game) =>
