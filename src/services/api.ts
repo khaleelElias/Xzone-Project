@@ -1,5 +1,6 @@
 import { API_URL } from "@/config";
 
+//this is for custimizing error message depending where it is
 export interface IError {
   message: string;
   key: string;
@@ -14,31 +15,32 @@ export interface IResponse<T> {
 
 const GET = async <T>(url: string) => {
   let response = await fetch(`${API_URL}/${url}`);
-  return await handleResponse<T>(response)
-}
+  return await handleResponse<T>(response);
+};
 
 const PUT = async <T>(url: string, body: any) => {
   let response = await fetch(`${API_URL}/${url}`, {
+    method: "PUT", // Add method
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
-    }
-  })
+      "Content-Type": "application/json",
+    },
+  });
 
   return await handleResponse<T>(response);
-}
+};
 
 const POST = async <T>(url: string, body: any) => {
   let response = await fetch(`${API_URL}/${url}`, {
+    method: "POST", // Add method
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
-    }
-  })
+      "Content-Type": "application/json",
+    },
+  });
 
   return await handleResponse<T>(response);
-}
-
+};
 
 const handleResponse = async <T>(response: Response) => {
   let responseObject = {} as IResponse<T>;
@@ -56,6 +58,6 @@ const handleResponse = async <T>(response: Response) => {
   responseObject.status = response.status;
 
   return responseObject;
-}
+};
 
 export { GET, POST, PUT };

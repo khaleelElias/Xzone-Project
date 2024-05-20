@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AdminCreateBetslip from "../../components/adminComponent/AdminCreateBetslip";
 import AdminHistoricalBetslip from "../../components/adminComponent/AdminHistoricalBetslip";
 import ThisWeekBetslip from "../../components/adminComponent/ThisWeekBetslip";
-import Testing from "../../components/adminComponent/Testing";
+import AdminOverview from "../../components/adminComponent/AdminOverview";
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("home");
@@ -37,7 +37,7 @@ const AdminPage: React.FC = () => {
             onClick={() => setActiveTab("profile")}
             role="tab"
           >
-            Testing
+            Overview
           </a>
         </li>
         <li role="presentation" className="flex-auto text-center">
@@ -64,11 +64,13 @@ const AdminPage: React.FC = () => {
         )}
         {activeTab === "profile" && (
           <div className="block opacity-100 transition-opacity duration-150 ease-linear">
-            <Testing />
+            <AdminOverview />
           </div>
         )}
         {activeTab === "betslip" && (
-          <div className="block text-white opacity-100 transition-opacity duration-150 ease-linear"></div>
+          <div className="block text-white opacity-100 transition-opacity duration-150 ease-linear">
+            <AdminHistoricalBetslip />
+          </div>
         )}
       </div>
     </div>

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import api from "@/services/api";
+import { GET, POST } from "@/services/api";
 
 interface Match {
   opponent1: string;
@@ -17,7 +16,7 @@ interface Match {
 
 interface Game {
   matches: Match[];
-  status?: string;
+  GameStatus?: string;
   date: Date;
 }
 
@@ -51,18 +50,17 @@ const AdminCreateBetslip = () => {
   };
 
   const saveGame = async () => {
-    try {
-      const newGame: Game = {
-        matches,
-        date: gameDate,
-      };
-      console.log({ matches });
-      const response = await api.post("/games", newGame);
-      alert(`Game saved: ${response.data.message}`);
-    } catch (error: any) {
-      alert(
-        `Failed to save game: ${error.response ? error.response.data.message : error.message}`
-      );
+    const newGame: Game = {
+      matches,
+      date: gameDate,
+    };
+    console.log({ matches });
+
+    const response = await POST<Game>("Games", newGame);
+    if (response.success) {
+      alert(`New Betslip Game have been created for: `);
+    } else {
+      alert(`Failed to save game: ${response.errorMessage}`);
     }
   };
 
