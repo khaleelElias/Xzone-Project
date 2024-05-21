@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { GET, POST } from "@/services/api";
+import { POST } from "@/services/api";
 
 interface Match {
   opponent1: string;

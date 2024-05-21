@@ -1,10 +1,10 @@
 import { API_URL } from "@/config";
 
-//this is for custimizing error message depending where it is
 export interface IError {
   message: string;
   key: string;
 }
+
 export interface IResponse<T> {
   data: T;
   error: IError[];
@@ -20,7 +20,7 @@ const GET = async <T>(url: string) => {
 
 const PUT = async <T>(url: string, body: any) => {
   let response = await fetch(`${API_URL}/${url}`, {
-    method: "PUT", // Add method
+    method: "PUT",
     body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const PUT = async <T>(url: string, body: any) => {
 
 const POST = async <T>(url: string, body: any) => {
   let response = await fetch(`${API_URL}/${url}`, {
-    method: "POST", // Add method
+    method: "POST",
     body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",

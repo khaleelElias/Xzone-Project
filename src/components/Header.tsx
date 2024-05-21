@@ -1,5 +1,6 @@
 import React from "react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
+import ConnectToWallet from "./ConnectToWallet";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
