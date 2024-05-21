@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import Header from "./components/Header";
 import { AuthProvider } from "./context/authContext";
+import { SolanaWalletProvider } from "./context/solanaContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,10 +13,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <Header />
-        <App />
-      </AuthProvider>
+      <SolanaWalletProvider>
+        <AuthProvider>
+          <Header />
+          <App />
+        </AuthProvider>
+      </SolanaWalletProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

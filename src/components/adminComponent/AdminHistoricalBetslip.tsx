@@ -1,5 +1,5 @@
 import { GET } from "@/services/api";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { parseISO, getISOWeek } from "date-fns";
 import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is imported
 
