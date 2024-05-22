@@ -1,37 +1,65 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { IBetSlip } from "./model";
 import "./Betting.css";
-import { mockGames } from "./mockData";
 import PoolInfo from "../../components/PoolInfo";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import db from "../../firebase/firebase";
 import Popup from "../../components/Popup";
+import { GET } from "@/services/api";
+import { Match, GameStatus, Game } from "./viewModel/BetslipGame";
+import Loading from "@/components/Loading";
+
+enum gameResultPicked {
+  home,
+  draw,
+  away
+}
 
 const BettingPage = () => {
   const MAX_BETTING_PICKS = 10;
-  const [games, setGames] = useState<IBetSlip[]>(mockGames);
+  const [betslipGameId, setBetslipGameId] = useState<string>("");
+  const [betSlipGameStatus, setBetslipGameStatus] = useState<GameStatus>();
+  const [games, setGames] = useState<Match[]>([]);
   const [isSendable, setIsSendable] = useState<boolean>(false);
-  const [price, setPrice] = useState<number>(0);
-  const [wallet, setWallet] = useState<string>("");
-  const [code, setCode] = useState<string>("");
+  const [price, setPrice] = useState<number>(1);
   const [reachedLimit, setReachedLimit] = useState<boolean>(false);
   const [sending, setSending] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const pickHomeMatch = (index: number) => {
+  const fetchBetSlip = async () => {
+    const response = await GET<Game>("games/active");
+    if (response.success) {
+      setGames(response.data.matches);
+      setBetslipGameId(response.data.betSlipId);
+      setBetslipGameStatus(response.data.status);
+    } else {
+
+    }
+
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    fetchBetSlip();
+  }, [])
+
+  const pickMatch = (index: number, gameResult: gameResultPicked) => {
+
     let arr = [...games];
     let game = arr[index];
     if (!game) return;
+    switch (gameResult) {
+      case gameResultPicked.home:
+        game.homePicked = !game.homePicked;
+        break;
+      case gameResultPicked.draw:
+        game.drawPicked = !game.drawPicked;
+        break;
+      case gameResultPicked.away:
+        game.awayPicked = !game.awayPicked;
+        break;
+      default:
+        return;
+    }
 
-    game.homePicked = !game.homePicked;
     arr[index] = game;
     setGames(arr);
 
@@ -39,48 +67,25 @@ const BettingPage = () => {
       !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
     );
     setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
-  };
+  }
 
-  const pickXMatch = (index: number) => {
-    let arr = [...games];
-    let game = arr[index];
-    if (!game) return;
-
-    game.drawPicked = !game.drawPicked;
-    arr[index] = game;
-    setGames(arr);
-
-    setIsSendable(
-      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
-    );
-    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
-  };
-
-  const pickAwayMatch = (index: number) => {
-    let arr = [...games];
-    let game = arr[index];
-    if (!game) return;
-
-    game.awayPicked = !game.awayPicked;
-    arr[index] = game;
-    setGames(arr);
-    setIsSendable(
-      !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
-    );
-    setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
-  };
-
-  const calcSum = (arr: IBetSlip[]) => {
+  const calcSum = (arr: Match[]) => {
+    let priceSum = 1;
     let sum = 0;
     for (let a of arr) {
-      if (a.homePicked) sum++;
-      if (a.drawPicked) sum++;
-      if (a.awayPicked) sum++;
+      let tempSum = 0;
+      if (a.homePicked) tempSum++;
+      if (a.drawPicked) tempSum++;
+      if (a.awayPicked) tempSum++;
+
+      priceSum *= tempSum || 1;
     }
+    console.log(priceSum)
+    setPrice(priceSum);
     return sum;
   };
 
-  const renderCheckboxes = (game: IBetSlip, index: number) => {
+  const renderCheckboxes = (game: Match, index: number) => {
     let homePickedClass = game.homePicked ? " checked" : "";
     let drawPickedClass = game.drawPicked ? " checked" : "";
     let awayPickedClass = game.awayPicked ? " checked" : "";
@@ -90,8 +95,8 @@ const BettingPage = () => {
           className={`checkboxBorder text-sm flex justify-center items-center ${!game.homePicked && reachedLimit ? " disabled" : ""} ${homePickedClass}`}
           onClick={
             game.homePicked || !reachedLimit
-              ? () => pickHomeMatch(index)
-              : () => {}
+              ? () => pickMatch(index, gameResultPicked.home)
+              : () => { }
           }
         >
           <span>1</span>
@@ -100,8 +105,8 @@ const BettingPage = () => {
           className={`checkboxBorder text-sm flex justify-center items-center ${!game.drawPicked && reachedLimit ? " disabled" : ""} ${drawPickedClass}`}
           onClick={
             game.drawPicked || !reachedLimit
-              ? () => pickXMatch(index)
-              : () => {}
+              ? () => pickMatch(index, gameResultPicked.draw)
+              : () => { }
           }
         >
           <span>X</span>
@@ -110,8 +115,8 @@ const BettingPage = () => {
           className={`checkboxBorder text-sm flex justify-center items-center ${!game.awayPicked && reachedLimit ? " disabled" : ""} ${awayPickedClass}`}
           onClick={
             game.awayPicked || !reachedLimit
-              ? () => pickAwayMatch(index)
-              : () => {}
+              ? () => pickMatch(index, gameResultPicked.away)
+              : () => { }
           }
         >
           <span>2</span>
@@ -122,200 +127,126 @@ const BettingPage = () => {
 
   async function send() {
     try {
-      if (!code || code.length == 0) return;
-
-      if (!wallet || wallet.length == 0) return;
-      setIsSendable(false);
-      setSending(true);
-      const q = query(collection(db, "codes"), where("code", "==", code));
-
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach(async (document) => {
-        // doc.data() is never undefined for query doc snapshots
-        let data = document.data();
-        if (data.used) {
-          setSending(false);
-          setStatus("Your code has already been used");
-          return;
-        }
-
-        await writeData();
-        await updateDoc(doc(db, "codes", document.id), {
-          used: true,
-        });
-
-        setSending(false);
-        setStatus("You successfully created the betslip");
-
-        return <Popup />;
-      });
-
-      setSending(false);
-      setStatus("Code not found");
+      return <Popup />
     } catch (error) {
-      setSending(false);
-      setIsSendable(true);
-      setStatus("Something went wrong, please try again later");
     }
   }
 
-  async function writeData() {
-    await addDoc(collection(db, "betslips"), {
-      ...games,
-      wallet: wallet,
-      code: code,
-    });
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <Loading />
+      </div>
+    )
+  } else {
+    return (
+      <>
+        <div className="background font-ProLight">
+          <div className="grid justify-center items-center p-8">
+            <img
+              src="/images/logo.png"
+              alt="logo"
+              className="cursor-pointer w-10 h-10 "
+            />
+          </div>
+
+          <PoolInfo />
+        </div>
+        <div className="centeralized-container">
+          <table className="custom-table table-auto border-separate games-tablet">
+            <tbody>
+              {games.map((game, index) => (
+                <tr key={index} className="gameBorder p-2">
+                  <td>
+                    <div className="flex gap-1 items-center">
+                      <p className="game-league text-xs md:text-sm">
+                        {game.league}
+                      </p>
+                      <p className="game-time text-xs">{game.startDate.toString()}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex justify-end text-xs md:text-base items-center gap-2.5">
+                      <p className="text-right">{game.opponent1}</p>
+                    </div>
+                  </td>
+                  <td valign="middle" className="text-xs px-2.5 text-center">
+                    <p>vs</p>
+                  </td>
+                  <td>
+                    <div className="flex justify-start text-xs md:text-base items-center gap-2.5">
+                      <p>{game.opponent2}</p>
+                    </div>
+                  </td>
+
+                  <td valign="middle">
+                    <div className="checkboxContainer">
+                      {renderCheckboxes(game, index)}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <table className="custom-table table-fix border-separate games-mobile">
+            <tbody>
+              {games.map((game, index) => (
+                <tr key={index} className="gameBorder p-2">
+                  <td>
+                    <div className="flex items-center gap-4">
+                      <p className="game-league text-xs">{game.league}</p>
+                      <p className="game-time text-xs">{game.startDate.toString()}</p>
+                    </div>
+
+                    <div
+                      className="flex text-xs font-semibold items-center gap-1.5"
+                      style={{ paddingTop: "10px" }}
+                    >
+                      <div className="flex items-center flex-col">
+                        <p>{game.opponent1}</p>
+                      </div>
+                      <p style={{ whiteSpace: "pre" }}> - </p>
+                      <div className="flex items-center flex-col">
+                        <p>{game.opponent2}</p>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td valign="middle" style={{ paddingLeft: "15px" }}>
+                    <div className="checkboxContainer">
+                      {renderCheckboxes(game, index)}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex justify-center">
+          {isSendable && (
+            <button
+              className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white"
+              onClick={send}
+            >
+              {" "}
+              Create My PIX Slip{" "}
+            </button>
+          )}
+
+          {!isSendable && (
+            <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled>
+              {" "}
+              Create My PIX Slip
+            </button>
+          )}
+        </div>
+        <div className="sticky bottom-0 flex justify-center bg-slate-900 text-white mt-6 p-3">
+          <p>current price {price} sol</p>
+        </div>
+      </>
+    );
   }
 
-  return (
-    <>
-      <div className="background font-ProLight">
-        <div className="grid justify-center items-center p-8">
-          <img
-            src="/images/logo.png"
-            alt="logo"
-            className="cursor-pointer w-10 h-10 "
-          />
-        </div>
-
-        <PoolInfo />
-        <div className="flex flex-wrap gap-10 justify-center pt-2 ">
-          <div className="flex flex-col rounded-md">
-            <input
-              type="text"
-              className="X-form-control"
-              placeholder="Early access code"
-              style={{ maxWidth: "200px" }}
-              onChange={(e) => setCode(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col gap-2 pb-3">
-            <input
-              type="text"
-              className="X-form-control"
-              placeholder="Wallet Address"
-              style={{ maxWidth: "200px" }}
-              onChange={(e) => setWallet(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="centeralized-container">
-        <table className="custom-table table-auto border-separate games-tablet">
-          <tbody>
-            {games.map((game, index) => (
-              <tr key={index} className="gameBorder p-2">
-                <td>
-                  <div className="flex gap-1 items-center">
-                    <p className="game-league text-xs md:text-sm">
-                      {game.league}
-                    </p>
-                    <p className="game-time text-xs">{game.date}</p>
-                  </div>
-                </td>
-                <td>
-                  <div className="flex justify-end text-xs md:text-base items-center gap-2.5">
-                    <p className="text-right">{game.homeTeam}</p>
-                    <img
-                      className="object-contain"
-                      src={game.homeTeamLogo}
-                      alt=""
-                      style={{ width: 32, height: 32 }}
-                    />
-                  </div>
-                </td>
-                <td valign="middle" className="text-xs px-2.5 text-center">
-                  <p>vs</p>
-                </td>
-                <td>
-                  <div className="flex justify-start text-xs md:text-base items-center gap-2.5">
-                    <img
-                      className="object-contain"
-                      src={game.awayTeamLogo}
-                      alt=""
-                      style={{ width: 32, height: 32 }}
-                    />
-                    <p>{game.awayTeam}</p>
-                  </div>
-                </td>
-
-                <td valign="middle">
-                  <div className="checkboxContainer">
-                    {renderCheckboxes(game, index)}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="centeralized-container" style={{ padding: 0 }}>
-        <table className="custom-table table-fix border-separate games-mobile">
-          <tbody>
-            {games.map((game, index) => (
-              <tr key={index} className="gameBorder p-2">
-                <td>
-                  <div className="flex items-center gap-4">
-                    <p className="game-league text-xs">{game.league}</p>
-                    <p className="game-time text-xs">{game.date}</p>
-                  </div>
-
-                  <div
-                    className="flex text-xs font-semibold items-center gap-1.5"
-                    style={{ paddingTop: "10px" }}
-                  >
-                    <div className="flex items-center flex-col">
-                      <p>{game.homeTeam}</p>
-                      <img
-                        className="object-contain"
-                        src={game.homeTeamLogo}
-                        alt=""
-                        style={{ width: 16, height: 16 }}
-                      />
-                    </div>
-                    <p style={{ whiteSpace: "pre" }}> - </p>
-                    <div className="flex items-center flex-col">
-                      <p>{game.awayTeam}</p>
-                      <img
-                        className="object-contain"
-                        src={game.awayTeamLogo}
-                        alt=""
-                        style={{ width: 16, height: 16 }}
-                      />
-                    </div>
-                  </div>
-                </td>
-
-                <td valign="middle" style={{ paddingLeft: "15px" }}>
-                  <div className="checkboxContainer">
-                    {renderCheckboxes(game, index)}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex justify-center">
-        {isSendable && (
-          <button
-            className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white"
-            onClick={send}
-          >
-            {" "}
-            Create My PIX Slip{" "}
-          </button>
-        )}
-
-        {!isSendable && (
-          <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled>
-            {" "}
-            Create My PIX Slip
-          </button>
-        )}
-      </div>
-    </>
-  );
 };
 
 export default BettingPage;
