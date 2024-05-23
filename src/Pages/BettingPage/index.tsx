@@ -25,20 +25,34 @@ const BettingPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchBetSlip = async () => {
-    const response = await GET<Game>("games/active");
-    if (response.success) {
-      setGames(response.data.matches);
-      setBetslipGameId(response.data.betSlipId);
-      setBetslipGameStatus(response.data.status);
-    } else {
+    try {
+      const response = await GET<Game[]>("Games");
+      if (response.success) {
+        const activeGames = response.data.filter((game) => game.status === 2);
+        if (activeGames.length > 0) {
+          const activeGame = activeGames[0];
+          setGames(activeGame.matches);
+          setBetslipGameId(activeGame.betSlipId);
+          setBetslipGameStatus(activeGame.status);
+        } else {
+          setGames([]);
+        }
+      } else {
+        console.error("Failed to fetch games:", response.errorMessage);
+      }
+    } catch (err) {
+      console.error("Failed to fetch games:", err);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchBetSlip();
   }, []);
+
+  if (isLoading) return <Loading />;
+  if (games.length === 0) return <div>No active games available.</div>;
 
   const pickMatch = (index: number, gameResult: gameResultPicked) => {
     let arr = [...games];
