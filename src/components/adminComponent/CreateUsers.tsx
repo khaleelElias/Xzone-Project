@@ -1,77 +1,87 @@
-import React, { useState } from "react";
-import { GET } from "@/services/api"; // Adjust the import path as needed
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { GET } from "@/services/api";
 
-const CreateUser: React.FC = () => {
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
+interface Match {
+  opponent1: string;
+  score1: number | null;
+  opponent2: string;
+  score2: number | null;
+  startDate: Date;
+  league: string;
+}
 
-  const connectWallet = async () => {
-    console.log("Attempting to connect to Phantom Wallet");
-    if ("solana" in window) {
-      const provider = (window as any).solana;
+interface Game {
+  matches: Match[];
+  date: Date;
+  GameStatus: number;
+}
 
-      if (provider.isPhantom) {
-        try {
-          const response = await provider.connect();
-          console.log("Connected to wallet:", response.publicKey.toString());
-          setWalletAddress(response.publicKey.toString());
+const PixBet = () => {
+  const [game, setGame] = useState<Game | null>(null);
 
-          // Send the public key to your backend to create a new user account
-          await createUserAccount(response.publicKey.toString());
-        } catch (err) {
-          console.error("Failed to connect to wallet:", err);
-          setMessage("Failed to connect to wallet. Please try again.");
+  useEffect(() => {
+    const fetchGame = async () => {
+      try {
+        const response = await GET<Game>("Games?status=2");
+        if (response.success) {
+          setGame(response.data);
+        } else {
+          console.error("Failed to fetch game:", response.errorMessage);
         }
-      } else {
-        alert("Please install Phantom Wallet");
+      } catch (error) {
+        console.error("Error fetching game:", error);
       }
-    } else {
-      alert("Phantom Wallet not found");
-    }
-  };
+    };
 
-  const createUserAccount = async (publicKey: string) => {
-    console.log("Sending public key to backend to create account:", publicKey);
-    try {
-      const response = await fetch("http://localhost:5005/user/register", {
-        // Adjust the URL if needed
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ walletAddress: publicKey }),
-      });
+    fetchGame();
+  }, []);
 
-      const text = await response.text(); // Log the raw response text
-      console.log("Raw response text:", text);
-
-      if (response.ok) {
-        console.log("Account creation response:", text);
-        setMessage("Account successfully created!");
-      } else {
-        console.error("Error creating account:", text);
-        setMessage("Error creating account. Please try again.");
-      }
-    } catch (err) {
-      console.error("Error creating account:", err);
-      setMessage("Error creating account. Please try again.");
-    }
-  };
+  if (!game) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <button
-        className="px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={connectWallet}
-      >
-        Connect Wallet
-      </button>
-      {walletAddress && (
-        <p className="mt-4 text-green-500">Wallet Address: {walletAddress}</p>
-      )}
-      {message && <p className="mt-4 text-red-500">{message}</p>}
+    <div className="p-7 text-black">
+      <h1 className="text-2xl text-white">
+        Game Date: {new Date(game.date).toLocaleDateString()}
+      </h1>
+      <div className="grid grid-cols-4 gap-3">
+        {game.matches.map((match, index) => (
+          <div key={index} className="p-4 mb-4 bg-gray-100 rounded">
+            <h3 className="text-lg font-bold mb-2">Match {index + 1}</h3>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-2">
+                <span className="font-bold">Opponent 1: </span>
+                {match.opponent1}
+              </div>
+              <div className="col-span-2">
+                <span className="font-bold">Score 1: </span>
+                {match.score1 !== null ? match.score1 : "TBD"}
+              </div>
+              <div className="col-span-2">
+                <span className="font-bold">Opponent 2: </span>
+                {match.opponent2}
+              </div>
+              <div className="col-span-2">
+                <span className="font-bold">Score 2: </span>
+                {match.score2 !== null ? match.score2 : "TBD"}
+              </div>
+              <div className="col-span-2">
+                <span className="font-bold">Start Date: </span>
+                {new Date(match.startDate).toLocaleString()}
+              </div>
+              <div className="col-span-2">
+                <span className="font-bold">League: </span>
+                {match.league}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default CreateUser;
+export default PixBet;
