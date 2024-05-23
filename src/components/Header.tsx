@@ -7,6 +7,7 @@ import { POST } from "@/services/api";
 import axios from "axios";
 import bs58 from "bs58";
 import { API_URL, SIGN_MESSAGE } from "@/config";
+import { Link } from "react-router-dom";
 
 interface RegisterReq {
   walletaddress: string;
@@ -61,24 +62,24 @@ const Header: React.FC = () => {
         >
           <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
             <li>
-              <a className="hover:text-gray-500" href="./">
+              <Link className="hover:text-gray-500" to="/">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-gray-500" href="/pixslip">
+              <Link className="hover:text-gray-500" to="/pixslip">
                 Betting
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-gray-500" href="#">
+              <Link className="hover:text-gray-500" to="/">
                 How it works
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="hover:text-gray-500" href="/admin_panel">
+              <Link className="hover:text-gray-500" to="/admin_panel">
                 Admin Panel
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

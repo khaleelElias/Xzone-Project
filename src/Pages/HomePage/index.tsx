@@ -1,12 +1,7 @@
-import Match from "@/components/Match";
-import AdminHistoricalBetslip from "@/components/adminComponent/AdminHistoricalBetslip";
 
 const HomePage = () => {
   return (
     <>
-      <AdminHistoricalBetslip />
-      <Match />
-
       <div className="flex h-screen items-center justify-center">
         <div className="rounded-md  py-4 px-6 bg">
           <img
