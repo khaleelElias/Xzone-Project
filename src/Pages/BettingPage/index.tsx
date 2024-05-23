@@ -10,7 +10,7 @@ import Loading from "@/components/Loading";
 enum gameResultPicked {
   home,
   draw,
-  away
+  away,
 }
 
 const BettingPage = () => {
@@ -31,18 +31,16 @@ const BettingPage = () => {
       setBetslipGameId(response.data.betSlipId);
       setBetslipGameStatus(response.data.status);
     } else {
-
     }
 
     setIsLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchBetSlip();
-  }, [])
+  }, []);
 
   const pickMatch = (index: number, gameResult: gameResultPicked) => {
-
     let arr = [...games];
     let game = arr[index];
     if (!game) return;
@@ -67,7 +65,7 @@ const BettingPage = () => {
       !arr.some((x) => !x.awayPicked && !x.homePicked && !x.drawPicked)
     );
     setReachedLimit(calcSum(arr) >= MAX_BETTING_PICKS);
-  }
+  };
 
   const calcSum = (arr: Match[]) => {
     let priceSum = 1;
@@ -80,7 +78,7 @@ const BettingPage = () => {
 
       priceSum *= tempSum || 1;
     }
-    console.log(priceSum)
+    console.log(priceSum);
     setPrice(priceSum);
     return sum;
   };
@@ -96,7 +94,7 @@ const BettingPage = () => {
           onClick={
             game.homePicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.home)
-              : () => { }
+              : () => {}
           }
         >
           <span>1</span>
@@ -106,7 +104,7 @@ const BettingPage = () => {
           onClick={
             game.drawPicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.draw)
-              : () => { }
+              : () => {}
           }
         >
           <span>X</span>
@@ -116,7 +114,7 @@ const BettingPage = () => {
           onClick={
             game.awayPicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.away)
-              : () => { }
+              : () => {}
           }
         >
           <span>2</span>
@@ -127,9 +125,8 @@ const BettingPage = () => {
 
   async function send() {
     try {
-      return <Popup />
-    } catch (error) {
-    }
+      return <Popup />;
+    } catch (error) {}
   }
 
   if (isLoading) {
@@ -137,7 +134,7 @@ const BettingPage = () => {
       <div className="min-h-screen">
         <Loading />
       </div>
-    )
+    );
   } else {
     return (
       <>
@@ -162,7 +159,9 @@ const BettingPage = () => {
                       <p className="game-league text-xs md:text-sm">
                         {game.league}
                       </p>
-                      <p className="game-time text-xs">{game.startDate.toString()}</p>
+                      <p className="game-time text-xs">
+                        {game.startDate.toString()}
+                      </p>
                     </div>
                   </td>
                   <td>
@@ -195,7 +194,9 @@ const BettingPage = () => {
                   <td>
                     <div className="flex items-center gap-4">
                       <p className="game-league text-xs">{game.league}</p>
-                      <p className="game-time text-xs">{game.startDate.toString()}</p>
+                      <p className="game-time text-xs">
+                        {game.startDate.toString()}
+                      </p>
                     </div>
 
                     <div
@@ -223,22 +224,13 @@ const BettingPage = () => {
           </table>
         </div>
         <div className="flex justify-center">
-          {isSendable && (
-            <button
-              className="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white"
-              onClick={send}
-            >
-              {" "}
-              Create My PIX Slip{" "}
-            </button>
-          )}
-
-          {!isSendable && (
-            <button className="bg-[#e4e4e4] py-2 px-7 mx-4 rounded-full" disabled>
-              {" "}
-              Create My PIX Slip
-            </button>
-          )}
+          <button
+            className="mt-6 bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white disabled:bg-[#e4e4e4] disabled:text-gray-500 disabled:cursor-not-allowed"
+            onClick={send}
+            disabled={!isSendable}
+          >
+            Create My PIX Slip
+          </button>
         </div>
         <div className="sticky bottom-0 flex justify-center bg-slate-900 text-white mt-6 p-3">
           <p>current price {price} sol</p>
@@ -246,7 +238,6 @@ const BettingPage = () => {
       </>
     );
   }
-
 };
 
 export default BettingPage;
