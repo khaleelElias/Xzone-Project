@@ -6,6 +6,7 @@ import App from "./App";
 import Header from "./components/Header";
 import { AuthProvider } from "./context/authContext";
 import { SolanaWalletProvider } from "./context/solanaContext";
+import { AppProvider } from "./context/appContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,8 +16,10 @@ root.render(
     <BrowserRouter>
       <SolanaWalletProvider>
         <AuthProvider>
-          <Header />
-          <App />
+          <AppProvider>
+            <Header />
+            <App />
+          </AppProvider>
         </AuthProvider>
       </SolanaWalletProvider>
     </BrowserRouter>

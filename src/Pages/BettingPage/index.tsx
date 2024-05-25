@@ -23,6 +23,7 @@ const BettingPage = () => {
   const [reachedLimit, setReachedLimit] = useState<boolean>(false);
   const [sending, setSending] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [processModalOpen, setProcessModalOpen] = useState<boolean>(false);
 
   const fetchBetSlip = async () => {
     try {
@@ -104,7 +105,7 @@ const BettingPage = () => {
     return (
       <>
         <div
-          className={`checkboxBorder text-sm flex justify-center items-center ${!game.homePicked && reachedLimit ? " disabled" : ""} ${homePickedClass}`}
+          className={`checkboxBorder select-none text-sm flex justify-center items-center ${!game.homePicked && reachedLimit ? " disabled" : ""} ${homePickedClass}`}
           onClick={
             game.homePicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.home)
@@ -114,7 +115,7 @@ const BettingPage = () => {
           <span>1</span>
         </div>
         <div
-          className={`checkboxBorder text-sm flex justify-center items-center ${!game.drawPicked && reachedLimit ? " disabled" : ""} ${drawPickedClass}`}
+          className={`checkboxBorder select-none text-sm flex justify-center items-center ${!game.drawPicked && reachedLimit ? " disabled" : ""} ${drawPickedClass}`}
           onClick={
             game.drawPicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.draw)
@@ -124,7 +125,7 @@ const BettingPage = () => {
           <span>X</span>
         </div>
         <div
-          className={`checkboxBorder text-sm flex justify-center items-center ${!game.awayPicked && reachedLimit ? " disabled" : ""} ${awayPickedClass}`}
+          className={`checkboxBorder select-none text-sm flex justify-center items-center ${!game.awayPicked && reachedLimit ? " disabled" : ""} ${awayPickedClass}`}
           onClick={
             game.awayPicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.away)
@@ -136,12 +137,6 @@ const BettingPage = () => {
       </>
     );
   };
-
-  async function send() {
-    try {
-      return <Popup />;
-    } catch (error) {}
-  }
 
   if (isLoading) {
     return (
@@ -240,7 +235,7 @@ const BettingPage = () => {
         <div className="flex justify-center">
           <button
             className="mt-6 bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white disabled:bg-[#e4e4e4] disabled:text-gray-500 disabled:cursor-not-allowed"
-            onClick={send}
+            onClick={() => setProcessModalOpen(true)}
             disabled={!isSendable}
           >
             Create My PIX Slip
@@ -249,6 +244,7 @@ const BettingPage = () => {
         <div className="sticky bottom-0 flex justify-center bg-slate-900 text-white mt-6 p-3">
           <p>current price {price} sol</p>
         </div>
+        {processModalOpen && <Popup />}
       </>
     );
   }
