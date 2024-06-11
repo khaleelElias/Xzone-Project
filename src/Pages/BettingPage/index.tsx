@@ -6,6 +6,7 @@ import Popup from "../../components/Popup";
 import { GET } from "@/services/api";
 import { Match, GameStatus, Game } from "./viewModel/BetslipGame";
 import Loading from "@/components/Loading";
+import { useApp } from "@/context/appContext";
 
 enum gameResultPicked {
   home,
@@ -24,20 +25,15 @@ const BettingPage = () => {
   const [sending, setSending] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [processModalOpen, setProcessModalOpen] = useState<boolean>(false);
+  const { handlePay } = useApp();
 
   const fetchBetSlip = async () => {
     try {
-      const response = await GET<Game[]>("Games");
+      const response = await GET<Game>("games/active");
       if (response.success) {
-        const activeGames = response.data.filter((game) => game.status === 2);
-        if (activeGames.length > 0) {
-          const activeGame = activeGames[0];
-          setGames(activeGame.matches);
-          setBetslipGameId(activeGame.betSlipId);
-          setBetslipGameStatus(activeGame.status);
-        } else {
-          setGames([]);
-        }
+        setGames(response.data.matches);
+        setBetslipGameId(response.data.betSlipId);
+        setBetslipGameStatus(response.data.status);
       } else {
         console.error("Failed to fetch games:", response.errorMessage);
       }
@@ -97,7 +93,7 @@ const BettingPage = () => {
     setPrice(priceSum);
     return sum;
   };
-
+  
   const renderCheckboxes = (game: Match, index: number) => {
     let homePickedClass = game.homePicked ? " checked" : "";
     let drawPickedClass = game.drawPicked ? " checked" : "";
@@ -144,6 +140,12 @@ const BettingPage = () => {
         <Loading />
       </div>
     );
+  } else if (games.length == 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center h-screen">
+        <h2 className="text-center text-white">No game is available</h2>
+      </div>
+    )
   } else {
     return (
       <>
@@ -235,7 +237,7 @@ const BettingPage = () => {
         <div className="flex justify-center">
           <button
             className="mt-6 bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white disabled:bg-[#e4e4e4] disabled:text-gray-500 disabled:cursor-not-allowed"
-            onClick={() => setProcessModalOpen(true)}
+            onClick={() => handlePay(price)}
             disabled={!isSendable}
           >
             Create My PIX Slip
