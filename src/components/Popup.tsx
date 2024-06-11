@@ -2,7 +2,8 @@ import { useApp } from "@/context/appContext";
 import { deposit } from "@/solana/action";
 import { useWallet } from "@solana/wallet-adapter-react";
 
-export default function Popup() {
+
+export default function Popup({amount}: {amount:number}) {
   const { handlePay } = useApp();
 
   return (
@@ -20,7 +21,7 @@ export default function Popup() {
                       className="w-30"
                     />
                     <h2 className="mb-6 text-1xl text-cyan-900 dark:text-white font-bold">
-                      Thank You for Placing a PIXslip. Resaluts will be
+                      Thank You for Placing a PIXslip. Resaults will be
                       announced on X
                     </h2>
                   </div>
@@ -41,7 +42,7 @@ export default function Popup() {
                   <div className="mt-14 space-y-4 py-3 text-gray-600 dark:text-gray-400 text-center">
                     <button
                       className="rounded-md border-[2px] border-[#4f2a3d2] px-4 py-2 hover:bg-slate-200"
-                      onClick={() => handlePay()}
+                      onClick={() => handlePay(amount)}
                     >
                       pay now
                     </button>

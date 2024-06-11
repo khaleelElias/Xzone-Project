@@ -246,7 +246,7 @@ const BettingPage = () => {
         <div className="sticky bottom-0 flex justify-center bg-slate-900 text-white mt-6 p-3">
           <p>current price {price} sol</p>
         </div>
-        {processModalOpen && <Popup />}
+        {processModalOpen && <Popup amount={price} />}
       </>
     );
   }
