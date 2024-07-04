@@ -7,35 +7,27 @@ export interface IApp {
   handlePay: Function;
 }
 
-type PaymentResult = {
+export type PaymentResult = {
   success: boolean,
   signature: string,
   message: string
 }
 
 export const AppContext = createContext<IApp>({
-  handlePay: (amount: number) => { },
+  handlePay: (encodedTransaction: string): PaymentResult => { return {success: false, signature: '', message: 'no payment'}},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const wallet = useWallet();
   const { connection } = useConnection();
 
-  const handlePay = async (amount: number): Promise<PaymentResult> => {
+  const handlePay = async (encodedTransaction: string): Promise<PaymentResult> => {
 
     if (!connection || !wallet.publicKey)
       return { success: false, signature: '', message: 'no wallet provided' };
-    
-    const transaction = new web3.Transaction();
-    const instruction = web3.SystemProgram.transfer({
-      fromPubkey: wallet.publicKey,
-      lamports: amount * web3.LAMPORTS_PER_SOL,
-      toPubkey: '',
-    });
-
-    transaction.add(instruction);
 
     try {
+      const transaction = web3.Transaction.from(Buffer.from(encodedTransaction, 'base64'))
       const signature = await wallet.sendTransaction(transaction, connection);
       return { success: true, signature, message: '' };
     }

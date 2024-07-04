@@ -1,51 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
-import ConnectToWallet from "./ConnectToWallet";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
-import { POST } from "@/services/api";
-import axios from "axios";
-import bs58 from "bs58";
-import { API_URL, SIGN_MESSAGE } from "@/config";
 import { Link } from "react-router-dom";
 
-interface RegisterReq {
-  walletaddress: string;
-}
-
 const Header: React.FC = () => {
-  const { publicKey: solanaAddress, signMessage } = useSolanaWallet();
 
   const [isOpen, setIsOpen] = React.useState(false);
-
   const onToggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    const handleRegister = async (solanaAddress: string) => {
-      const res = await axios.post(`${API_URL}/user/register`, {
-        walletAddress: solanaAddress,
-      });
-      if (res.status === 201) {
-        const nonce = res.data;
-        const message = `${SIGN_MESSAGE} : ${nonce}`;
-        const sign = await signMessage!(new TextEncoder().encode(message));
-        const tokens = await axios
-          .patch(`${API_URL}/user/login`, {
-            walletAddress: solanaAddress,
-            signature: bs58.encode(
-              new Uint8Array(sign as unknown as ArrayBuffer)
-            ),
-          })
-          .then((r) => r.data);
-        console.log(tokens.accessToken);
-        console.log(tokens.refreshToken);
-      }
-    };
-
-    if (solanaAddress) handleRegister(solanaAddress.toBase58());
-  }, [solanaAddress]);
 
   return (
     <header className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">

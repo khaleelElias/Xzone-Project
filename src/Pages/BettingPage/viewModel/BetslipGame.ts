@@ -12,6 +12,7 @@ enum GameStatus {
 }
 
 type Match = {
+    matchId: string;
     opponent1: string;
     opponent2: string;
     homeTeamLogo: string;

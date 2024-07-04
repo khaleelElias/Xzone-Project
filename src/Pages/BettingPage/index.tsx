@@ -1,12 +1,29 @@
-import { useEffect, useState } from "react";
-import { IBetSlip } from "./model";
+import { useContext, useEffect, useState } from "react";
 import "./Betting.css";
 import PoolInfo from "../../components/PoolInfo";
-import Popup from "../../components/Popup";
-import { GET } from "@/services/api";
+import { GET, POST } from "@/services/api";
 import { Match, GameStatus, Game } from "./viewModel/BetslipGame";
 import Loading from "@/components/Loading";
-import { useApp } from "@/context/appContext";
+import { PaymentResult, useApp } from "@/context/appContext";
+import { AuthContext } from "@/context/authContext";
+import { web3 } from "@coral-xyz/anchor";
+
+type preSubmitDto = {
+  gameId: string;
+  predictions: betPrediction[];
+}
+
+type betPrediction = {
+  matchId: string;
+  first: boolean;
+  equal: boolean;
+  second: boolean;
+}
+
+type preSubmitViewModel = {
+  betSlipId: string;
+  encodedTransaction: string;
+}
 
 enum gameResultPicked {
   home,
@@ -16,6 +33,8 @@ enum gameResultPicked {
 
 const BettingPage = () => {
   const MAX_BETTING_PICKS = 10;
+  const authContext = useContext(AuthContext);
+
   const [betslipGameId, setBetslipGameId] = useState<string>("");
   const [betSlipGameStatus, setBetslipGameStatus] = useState<GameStatus>();
   const [games, setGames] = useState<Match[]>([]);
@@ -24,7 +43,6 @@ const BettingPage = () => {
   const [reachedLimit, setReachedLimit] = useState<boolean>(false);
   const [sending, setSending] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [processModalOpen, setProcessModalOpen] = useState<boolean>(false);
   const { handlePay } = useApp();
 
   const fetchBetSlip = async () => {
@@ -93,7 +111,39 @@ const BettingPage = () => {
     setPrice(priceSum);
     return sum;
   };
-  
+
+  const submitBetSlip = async () => {
+    if (!authContext.walletConnected()) {
+      authContext.connectWallet();
+      return;
+    }
+
+    let preSubmitResponse = await POST<preSubmitViewModel>('betslip/pre-submit', { gameId: betslipGameId, predictions: games.map((x) => ({ first: x.homePicked, equal: x.drawPicked, second: x.awayPicked, matchId: x.matchId })) } as preSubmitDto)
+
+    if(!preSubmitResponse.success) {
+      //handle pre submition error
+      return;
+    }
+
+    let paymentResponse = await handlePay(preSubmitResponse.data.encodedTransaction) as PaymentResult;
+    
+    if(!paymentResponse.success) {
+      //handle payment error
+      return;
+    }
+
+    let submitResponse = await POST('betslip/submit', { betSlipId: preSubmitResponse.data.betSlipId, signature: paymentResponse.signature })
+
+    if(!submitResponse.success) {
+      //roll back payment
+      //handle submit error
+      return;
+    }
+
+    //give user success validation
+
+  }
+
   const renderCheckboxes = (game: Match, index: number) => {
     let homePickedClass = game.homePicked ? " checked" : "";
     let drawPickedClass = game.drawPicked ? " checked" : "";
@@ -105,7 +155,7 @@ const BettingPage = () => {
           onClick={
             game.homePicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.home)
-              : () => {}
+              : () => { }
           }
         >
           <span>1</span>
@@ -115,7 +165,7 @@ const BettingPage = () => {
           onClick={
             game.drawPicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.draw)
-              : () => {}
+              : () => { }
           }
         >
           <span>X</span>
@@ -125,7 +175,7 @@ const BettingPage = () => {
           onClick={
             game.awayPicked || !reachedLimit
               ? () => pickMatch(index, gameResultPicked.away)
-              : () => {}
+              : () => { }
           }
         >
           <span>2</span>
@@ -237,7 +287,7 @@ const BettingPage = () => {
         <div className="flex justify-center">
           <button
             className="mt-6 bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white disabled:bg-[#e4e4e4] disabled:text-gray-500 disabled:cursor-not-allowed"
-            onClick={() => handlePay(price)}
+            onClick={() => submitBetSlip()}
             disabled={!isSendable}
           >
             Create My PIX Slip
@@ -246,7 +296,6 @@ const BettingPage = () => {
         <div className="sticky bottom-0 flex justify-center bg-slate-900 text-white mt-6 p-3">
           <p>current price {price} sol</p>
         </div>
-        {processModalOpen && <Popup amount={price} />}
       </>
     );
   }

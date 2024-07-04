@@ -1,92 +1,86 @@
-import { ReactNode, createContext, useState } from "react";
-import Modal from "../components/Modal/Modal";
-import { POST } from "@/services/api";
+import { ReactNode, createContext, useEffect } from "react";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import axios from "axios";
+import bs58 from "bs58";
+import { API_URL, SIGN_MESSAGE } from "@/config";
+import { PATCH, POST } from "@/services/api";
 
 type Props = {
   children?: ReactNode;
 };
 
 type IAuthContext = {
-  authenticated: boolean;
-  authenticate: () => void;
+  connectWallet: () => void;
+  walletConnected: () => boolean;
 };
 
+type RegisterVm = {
+  nonce: string;
+}
+
+type AuthorizationVm = {
+  accessToken: string;
+  refreshToken: string;
+}
+
 const initialValue: IAuthContext = {
-  authenticated: false,
-  authenticate: async () => {},
+  connectWallet: async () => { },
+  walletConnected: () => false
 };
 
 const AuthContext = createContext<IAuthContext>(initialValue);
 
 const AuthProvider = ({ children }: Props) => {
-  const [authenticated, setAuthenticated] = useState<boolean>(
-    initialValue.authenticated
-  );
-  const [registerOpen, setRegisterOpen] = useState<boolean>(false);
-  const [walletAddress, setWalletAddress] = useState("");
-  const getProvider = () => {
-    if ("phantom" in window) {
-      const phantom = window.phantom as any;
 
-      const provider = phantom?.solana;
-      if (provider?.isPhantom) {
-        return provider;
-      }
-    }
+  const { publicKey: solanaAddress, signMessage, connected, disconnect } = useSolanaWallet();
+  const { setVisible } = useWalletModal();
+  const walletConnected = () => {
+    return connected;
+  }
 
-    window.open("https://phantom.app/", "_blank");
-  };
+  useEffect(() => {
+    if (solanaAddress)
+      authenticate();
+  }, [solanaAddress])
+
+  const connectWallet = async () => {
+    setVisible(true);
+  }
 
   const authenticate = async () => {
-    let provider = getProvider();
-    if (!provider) return;
-
-    try {
-      const resp = await provider.connect({ onlyIfTrusted: true });
-      setWalletAddress(resp.publicKey.toString());
-
-      const response = await POST("/auth/user/login", {
-        signature: resp.publicKey.toString(),
-        walletAddress: resp.publicKey.toString(),
-      });
-
-      if (response.success) {
-      } else {
-        if (response.status == 404) {
-          setRegisterOpen(true);
-        } else {
-          //TODO: warn user?
-          console.log(response.errorMessage);
-        }
-      }
-
-      // 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo
-    } catch (err) {
-      // { code: 4001, message: 'User rejected the request.' }
-    }
-  };
-
-  const register = async () => {
-    const response = await POST("/auth/user/register", {
-      walletAddress: walletAddress,
+    const res = await POST<RegisterVm>(`user/register`, {
+      walletAddress: solanaAddress,
     });
 
-    if (!response.success) {
-      //TODO: warn user?
-      console.log("error");
-    } else {
-      setRegisterOpen(false);
-      authenticate();
+    if(!res.success) {
+      //TODO: show message
+      disconnect();
+      return;
     }
+
+    if (res.status === 201) {
+      const nonce = res.data?.nonce;
+      const message = `${SIGN_MESSAGE} : ${nonce}`;
+      const sign = await signMessage!(new TextEncoder().encode(message));
+      const tokensResponse = await PATCH("user/login", {
+        walletAddress: solanaAddress?.toBase58(),
+        signature: bs58.encode(
+          new Uint8Array(sign as unknown as ArrayBuffer)
+        ),
+      })
+
+      if(!tokensResponse.success) {
+        //TODO: show message
+        disconnect();
+        return;
+      }
+    }
+
   };
 
   return (
-    <AuthContext.Provider value={{ authenticated, authenticate }}>
-      <Modal open={false} title={"Terms of servie"}>
-        <p>brororororooooooor du måste acceptera detta</p>
-        <button onClick={register}>I Accept</button>
-        <button onClick={() => setRegisterOpen(false)}>I Decline</button>
-      </Modal>
+    <AuthContext.Provider value={{ connectWallet, walletConnected }}>
       {children}
     </AuthContext.Provider>
   );

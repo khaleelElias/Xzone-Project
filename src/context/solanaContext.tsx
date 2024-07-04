@@ -16,7 +16,8 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 
 export const SolanaWalletProvider = ({ children }: { children: ReactNode }) => {
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Testnet;
+  //const network = <HELIUS-API>;
 
   // You can also provide a custom RPC endpoint
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
