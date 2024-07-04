@@ -6,7 +6,7 @@ import { Match, GameStatus, Game } from "./viewModel/BetslipGame";
 import Loading from "@/components/Loading";
 import { PaymentResult, useApp } from "@/context/appContext";
 import { AuthContext } from "@/context/authContext";
-import { web3 } from "@coral-xyz/anchor";
+import { toast } from 'react-toastify';
 
 type preSubmitDto = {
   gameId: string;
@@ -34,7 +34,6 @@ enum gameResultPicked {
 const BettingPage = () => {
   const MAX_BETTING_PICKS = 10;
   const authContext = useContext(AuthContext);
-
   const [betslipGameId, setBetslipGameId] = useState<string>("");
   const [betSlipGameStatus, setBetslipGameStatus] = useState<GameStatus>();
   const [games, setGames] = useState<Match[]>([]);
@@ -43,20 +42,22 @@ const BettingPage = () => {
   const [reachedLimit, setReachedLimit] = useState<boolean>(false);
   const [sending, setSending] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const { handlePay } = useApp();
 
   const fetchBetSlip = async () => {
     try {
       const response = await GET<Game>("games/active");
-      if (response.success) {
-        setGames(response.data.matches);
-        setBetslipGameId(response.data.betSlipId);
-        setBetslipGameStatus(response.data.status);
-      } else {
-        console.error("Failed to fetch games:", response.errorMessage);
+      if(!response.success) {
+        return;
       }
+
+      setGames(response.data.matches);
+      setBetslipGameId(response.data.betSlipId);
+      setBetslipGameStatus(response.data.status);
+
     } catch (err) {
-      console.error("Failed to fetch games:", err);
+      toast.error("Something went wrong, please try again later");
     } finally {
       setIsLoading(false);
     }

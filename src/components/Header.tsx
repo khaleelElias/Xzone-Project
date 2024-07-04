@@ -48,9 +48,6 @@ const Header: React.FC = () => {
         </div>
         <div className="flex items-center gap-6">
           <WalletMultiButton />
-          <button className="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]">
-            Sign in
-          </button>
           {isOpen ? (
             <IoMdClose
               className="text-3xl cursor-pointer md:hidden text-white"
