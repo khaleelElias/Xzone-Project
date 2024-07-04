@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import db from "../../../firebase/firebase";
 
 const PoolInfo = () => {
   const [participantCount, setParticipantCount] = useState(0);
 
   useEffect(() => {
-    const fetchParticipantCount = async () => {
+    /*const fetchParticipantCount = async () => {
       const collectionRef = collection(db, "betslips");
       const snapshot = await getDocs(collectionRef);
       setParticipantCount(snapshot.size);
@@ -20,7 +18,7 @@ const PoolInfo = () => {
     });
 
     // Unsubscribe from snapshot listener when component unmounts
-    return () => unsubscribe();
+    return () => unsubscribe();*/
   }, []); // Empty dependency array to run effect only once on mount
 
   return (
@@ -30,7 +28,7 @@ const PoolInfo = () => {
           <img
             src="/images/userw.png"
             alt="logo"
-            className=" w-10 h-10 md:w-4 h-4"
+            className=" w-10 h-10 md:w-4 "
           />
         </div>
         <div className="font-ProLight text-white text-sm md:text-base">
