@@ -5,6 +5,7 @@ import axios from "axios";
 import bs58 from "bs58";
 import { API_URL, SIGN_MESSAGE } from "@/config";
 import { PATCH, POST } from "@/services/api";
+import { toast } from "react-toastify";
 
 type Props = {
   children?: ReactNode;
@@ -54,7 +55,6 @@ const AuthProvider = ({ children }: Props) => {
     });
 
     if(!res.success) {
-      //TODO: show message
       disconnect();
       return;
     }
@@ -71,7 +71,6 @@ const AuthProvider = ({ children }: Props) => {
       })
 
       if(!tokensResponse.success) {
-        //TODO: show message
         disconnect();
         return;
       }

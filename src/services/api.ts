@@ -1,4 +1,5 @@
 import { API_URL } from "@/config";
+import { toast } from 'react-toastify';
 
 export interface IError {
   message: string;
@@ -69,12 +70,22 @@ const handleResponse = async <T extends unknown>(response: Response) => {
   responseObject.success = response.ok;
   responseObject.status = response.status;
 
+  //TODO: handle bad gateway response, handle unauthorized req
+
   if(!response.ok) {
     
     try {
-      responseObject.error = await response.json();
-    } catch (error) {
+      let errResponse = await response.json();
+      if(typeof errResponse.message == 'string') 
+        responseObject.errorMessage = errResponse.message;
+      else
+        responseObject.error = errResponse.message;
+    } catch {
       responseObject.errorMessage = await response.text();
+    }
+    finally {
+      if(responseObject.errorMessage)
+        toast.error(responseObject.errorMessage);
     }
 
     return responseObject;
