@@ -1,17 +1,24 @@
-type Game = {
+export type Game = {
     betSlipId: string;
     matches: Match[];
     status: GameStatus;
 }
 
-enum GameStatus {
+export enum GameStatus {
+    NotFound = -1,
     Preparing,
     Started,
     Running,
     Ended,
 }
 
-type Match = {
+export enum MatchResult {
+    First = 1,
+    Equal = 2,
+    Second = 3
+}
+
+export type Match = {
     matchId: string;
     opponent1: string;
     opponent2: string;
@@ -22,6 +29,5 @@ type Match = {
     homePicked: boolean;
     drawPicked: boolean;
     awayPicked: boolean;
+    result: MatchResult;
 }
-
-export type { Match, Game, GameStatus }
