@@ -60,7 +60,7 @@ const AdminOverview = () => {
   }, []);
 
   const handleSave = async (gameId: number, updatedGame: Game) => {
-    const response = await PUT<Game>(`/Games/${gameId}`, updatedGame);
+    const response = await PUT<Game>(`Games/${gameId}`, updatedGame);
     if (response.success) {
       const updatedGames = games.map((game) =>
         game.id === gameId ? { ...game, ...updatedGame } : game
