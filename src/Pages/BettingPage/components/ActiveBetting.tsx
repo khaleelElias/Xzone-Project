@@ -4,6 +4,7 @@ import { Match } from "../viewModel/BetslipGame";
 import { AuthContext } from "@/context/authContext";
 import { POST } from "@/services/api";
 import { PaymentResult, useApp } from "@/context/appContext";
+import { toast } from "react-toastify";
 
 export interface IActiveBetting {
     betslipGameId: string;
@@ -34,7 +35,7 @@ enum gameResultPicked {
 }
 
 export const ActiveBetting = (props: IActiveBetting) => {
-    
+
     const authContext = useContext(AuthContext);
     const MAX_BETTING_PICKS = 10;
 
@@ -97,14 +98,13 @@ export const ActiveBetting = (props: IActiveBetting) => {
         let preSubmitResponse = await POST<preSubmitViewModel>('betslip/pre-submit', { gameId: props.betslipGameId, predictions: games.map((x) => ({ first: x.homePicked, equal: x.drawPicked, second: x.awayPicked, matchId: x.matchId })) } as preSubmitDto)
 
         if (!preSubmitResponse.success) {
-            //handle pre submition error
             return;
         }
 
         let paymentResponse = await handlePay(preSubmitResponse.data.encodedTransaction) as PaymentResult;
 
         if (!paymentResponse.success) {
-            //TODO: handle payment error
+            toast.error(paymentResponse.message);
             return;
         }
 
@@ -116,8 +116,7 @@ export const ActiveBetting = (props: IActiveBetting) => {
             return;
         }
 
-        //give user success validation
-
+        toast.success("Successfully created pix slip! 🚀");
     }
 
     const renderCheckboxes = (game: Match, index: number) => {
@@ -128,7 +127,7 @@ export const ActiveBetting = (props: IActiveBetting) => {
             <>
                 <div
                     className={`checkboxBorder select-none text-sm flex justify-center items-center ${!game.homePicked && reachedLimit ? " disabled" : ""} ${homePickedClass}`}
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                     onClick={
                         game.homePicked || !reachedLimit
                             ? () => pickMatch(index, gameResultPicked.home)
@@ -139,7 +138,7 @@ export const ActiveBetting = (props: IActiveBetting) => {
                 </div>
                 <div
                     className={`checkboxBorder select-none text-sm flex justify-center items-center ${!game.drawPicked && reachedLimit ? " disabled" : ""} ${drawPickedClass}`}
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                     onClick={
                         game.drawPicked || !reachedLimit
                             ? () => pickMatch(index, gameResultPicked.draw)
@@ -150,7 +149,7 @@ export const ActiveBetting = (props: IActiveBetting) => {
                 </div>
                 <div
                     className={`checkboxBorder select-none text-sm flex justify-center items-center ${!game.awayPicked && reachedLimit ? " disabled" : ""} ${awayPickedClass}`}
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                     onClick={
                         game.awayPicked || !reachedLimit
                             ? () => pickMatch(index, gameResultPicked.away)
